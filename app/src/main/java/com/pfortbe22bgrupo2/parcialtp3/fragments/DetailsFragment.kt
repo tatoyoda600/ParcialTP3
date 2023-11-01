@@ -7,24 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
 import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailsBinding
-    companion object {
-        fun newInstance() = DetailsFragment()
-    }
-
     private lateinit var viewModel: DetailsViewModel
+    lateinit var binding : FragmentDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDetailsBinding.inflate(inflater, container,false)
+        binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

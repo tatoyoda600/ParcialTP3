@@ -7,21 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.PublicationViewModel
-import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentPublicationBinding
 
 class PublicationFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = PublicationFragment()
-    }
-
     private lateinit var viewModel: PublicationViewModel
+    lateinit var binding : FragmentPublicationBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_publication, container, false)
+        binding = FragmentPublicationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
