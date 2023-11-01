@@ -7,21 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.ConfigurationViewModel
-import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentConfigurationBinding
 
 class ConfigurationFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ConfigurationFragment()
-    }
-
     private lateinit var viewModel: ConfigurationViewModel
+    lateinit var binding : FragmentConfigurationBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_configuration, container, false)
+        binding = FragmentConfigurationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -7,21 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
-import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = DetailsFragment()
-    }
-
     private lateinit var viewModel: DetailsViewModel
+    lateinit var binding : FragmentDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_details, container, false)
+        binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

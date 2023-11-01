@@ -7,21 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
-import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = FavoritesFragment()
-    }
-
     private lateinit var viewModel: FavoritesViewModel
+    lateinit var binding : FragmentFavoritesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

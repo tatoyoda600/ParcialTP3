@@ -5,17 +5,17 @@ import android.os.Parcelable
 import android.util.ArrayMap
 
 data class BreedsResponse(
-    val status: String?,
-    val message: ArrayMap<String, SubBreeds>?
+    val message: ArrayMap<String, SubBreeds>?,
+    val status: String?
 ): Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.createTypedArrayMap<SubBreeds>(SubBreeds.CREATOR)
+        parcel.createTypedArrayMap<SubBreeds>(SubBreeds.CREATOR),
+        parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(status)
         parcel.writeTypedArrayMap(message, 0)
+        parcel.writeString(status)
     }
 
     override fun describeContents(): Int {
