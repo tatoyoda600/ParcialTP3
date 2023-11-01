@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment2_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="dog"
+            app:argType="com.pfortbe22bgrupo2.parcialtp3.models.Dog" />
+    </fragment>
+    <fragment
+        android:id="@+id/adoptedFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment"
+        android:label="fragment_adopted"
+        tools:layout="@layout/fragment_adopted" >
+        <action
+            android:id="@+id/action_adoptedFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/publicationFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.PublicationFragment"
+        android:label="fragment_publication"
+        tools:layout="@layout/fragment_publication" >
+        <action
+            android:id="@+id/action_publicationFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/configurationFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.ConfigurationFragment"
+        android:label="fragment_configuration"
+        tools:layout="@layout/fragment_configuration" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
