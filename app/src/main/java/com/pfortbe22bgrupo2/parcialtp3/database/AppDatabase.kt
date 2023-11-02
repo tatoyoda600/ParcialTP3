@@ -7,8 +7,9 @@ import androidx.room.RoomDatabase
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogImageEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserEntity
+import com.pfortbe22bgrupo2.parcialtp3.entities.UserFavoritesEntity
 
-@Database(entities = [DogEntity::class, DogImageEntity::class, UserEntity::class], version = 1)
+@Database(entities = [DogEntity::class, DogImageEntity::class, UserEntity::class, UserFavoritesEntity::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun dogDao(): DogDao
     abstract fun dogImagesDao(): DogImagesDao
