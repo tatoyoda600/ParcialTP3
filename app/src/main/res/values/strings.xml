@@ -7,9 +7,18 @@
     <string name="weight">Peso</string>
     <string name="owner">Dueño</string>
     <string name="owner_name">Nombre del dueño</string>
-    <string name="long_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit.</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit. </string>
     <string name="to_adopt">Adoptar</string>
     <string name="años">%1$s años</string>
     <string name="error_message_phone_number_not_avaliable">El número de teléfono del dueño no está disponible.</string>
+    <string name="night_mode">Modo Oscuro</string>
+    <string name="upload_picture">Subir Foto</string>
+    <string name="user_cellphone">Telefono del Usuario</string>
+    <string name="user_name">Nombre del Usuario</string>
+    <string name="profile_picture_description">Foto de Perfil</string>
+    <string name="welcome">¡BIENVENIDO!</string>
+    <string name="login">Iniciar Seccion</string>
+    <string name="setting_screen_category">Pantala</string>
+    <string name="openNavDrawer">Open Navigation Drawer</string>
+    <string name="closeNavDrawer">Close Navigation Drawer</string>
+    <string name="Bienvenida">Hola</string>
 </resources>

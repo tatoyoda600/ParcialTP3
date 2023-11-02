@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".fragments.DetailsFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Details" />
 
     <Button
         android:id="@+id/btn_show_bottom_sheet"
