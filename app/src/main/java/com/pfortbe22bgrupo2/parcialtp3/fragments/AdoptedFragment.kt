@@ -21,10 +21,4 @@ class AdoptedFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AdoptedViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }
