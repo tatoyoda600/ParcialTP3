@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_test"
+    app:startDestination="@id/profileFragment2">
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.activities.SettingsActivity"
+        android:label="activity_setting"
+        tools:layout="@layout/activity_setting" />
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

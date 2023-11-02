@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Parcial TP3</string>
+    <string name="night_mode">Modo Oscuro</string>
+    <string name="upload_picture">Subir Foto</string>
+    <string name="user_cellphone">Telefono del Usuario</string>
+    <string name="user_name">Nombre del Usuario</string>
+    <string name="profile_picture_description">Foto de Perfil</string>
 </resources>

@@ -74,7 +74,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="homeFragment2">
+                  <entry key="homeFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -100,7 +100,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="40" />
+                            <option name="x" value="-44" />
                             <option name="y" value="40" />
                           </Point>
                         </option>
@@ -140,6 +140,61 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_publicationFragment_to_homeFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
+        <entry key="nav_test.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="profileFragment2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-248" />
+                            <option name="y" value="-422" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="settingsActivity">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-82" />
+                            <option name="y" value="-105" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="startFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-386" />
+                            <option name="y" value="-103" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_startFragment_to_settingsActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
