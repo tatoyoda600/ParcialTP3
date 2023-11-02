@@ -5,4 +5,6 @@
     <string name="user_cellphone">Telefono del Usuario</string>
     <string name="user_name">Nombre del Usuario</string>
     <string name="profile_picture_description">Foto de Perfil</string>
+    <string name="welcome">¡BIENVENIDO!</string>
+    <string name="login">Iniciar Seccion</string>
 </resources>

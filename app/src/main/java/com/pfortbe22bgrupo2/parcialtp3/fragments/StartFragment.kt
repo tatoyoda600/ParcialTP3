@@ -28,17 +28,10 @@ class StartFragment : Fragment() {
     ): View? {
         binding = FragmentStartBinding.inflate(inflater,container,false)
         return binding.root
-        //inflater.inflate(R.layout.fragment_start, container, false)
+
     }
 
-    override fun onStart() {
-        super.onStart()
-        binding.button.setOnClickListener(){
-            val action = StartFragmentDirections.actionStartFragmentToSettingsActivity()
-            findNavController().navigate(action)
-        }
-    }
-
+    
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
