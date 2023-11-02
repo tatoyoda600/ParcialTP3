@@ -19,4 +19,6 @@
     <string name="publication_weight_input">Peso del Perro</string>
     <string name="publication_text_input">Descripcion / Comentarios</string>
     <string name="publication_submit">Confirmar</string>
+    <string name="fotos_del_perro">Fotos del perro</string>
+    <string name="mostrar_bottom_sheet">mostrar bottom sheet</string>
 </resources>

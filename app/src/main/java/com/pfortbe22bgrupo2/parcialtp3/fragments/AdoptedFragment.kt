@@ -11,7 +11,7 @@ import com.pfortbe22bgrupo2.parcialtp3.viewmodels.AdoptedViewModel
 
 class AdoptedFragment : Fragment() {
     private lateinit var viewModel: AdoptedViewModel
-    lateinit var binding : FragmentAdoptedBinding
+    private lateinit var binding: FragmentAdoptedBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,10 +21,9 @@ class AdoptedFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(AdoptedViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }
