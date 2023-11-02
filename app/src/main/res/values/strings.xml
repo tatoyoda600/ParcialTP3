@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Parcial TP3</string>
+    <string name="fotos_del_perro">Fotos del perro</string>
+    <string name="mostrar_bottom_sheet">mostrar bottom sheet</string>
 </resources>
