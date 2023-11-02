@@ -12,4 +12,5 @@
     <string name="to_adopt">Adoptar</string>
     <string name="años">%1$s años</string>
     <string name="error_message_phone_number_not_avaliable">El número de teléfono del dueño no está disponible.</string>
+    <string name="mostrar_bottom_sheet">mostrar bottom sheet</string>
 </resources>

@@ -1,29 +1,29 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.pfortbe22bgrupo2.parcialtp3.R
-import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
+import com.pfortbe22bgrupo2.parcialtp3.activities.ImageViewActivity
+import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentDetailsBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 
 class DetailsFragment : Fragment() {
 
-    lateinit var binding: FragmentDetailsBinding
+    private lateinit var binding: FragmentDetailsBinding
     private lateinit var dog: Dog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,10 +36,46 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //val dog = DetailsFragmentArgs.fromBundle(requireArguments()).dog
         this.dog = createSampleDog()
+
+        setupRecyclerView()
         setShowBottomSheetAction()
     }
 
-    private fun setShowBottomSheetAction(){
+    private fun setupRecyclerView() {
+        val recyclerView = binding.recycler
+
+        //val array_imgs = dog.image_urls
+
+        val array_imgs = arrayOf(
+            "https://images.unsplash.com/photo-1692528131755-d4e366b2adf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzNXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1692862582645-3b6fd47b7513?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0MXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1692584927805-d4096552a5ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Nnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1692854236272-cc49076a2629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1MXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1681207751526-a091f2c6a538?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyODF8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1692610365998-c628604f5d9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyODZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+        )
+
+
+        val adapter = ImageAdapter(requireContext(), array_imgs)
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+    }
+
+    private fun startImageViewActivity(imagePath: String?, imageView: ImageView?) {
+        val intent = Intent(requireContext(), ImageViewActivity::class.java).apply {
+            putExtra("image", imagePath)
+        }
+
+        val options = ActivityOptions.makeSceneTransitionAnimation(
+            requireActivity(),
+            imageView,
+            "image"
+        ).toBundle()
+
+        startActivity(intent, options)
+    }
+
+    private fun setShowBottomSheetAction() {
         val btnShowBottomSheet = binding.btnShowBottomSheet
         btnShowBottomSheet.setOnClickListener {
             showBottomSheet(dog)
@@ -58,6 +94,7 @@ class DetailsFragment : Fragment() {
             location = "Recoleta, Buenos Aires",
             sex = "Male",
             weight = 15.5f,
+            owner_username = "jm_sarmiento",
             owner = "Juan Martin Sarmiento",
             phone = "1123478540",
             text = "Rex is a friendly and energetic dog looking for a loving home. He enjoys long walks in the park and playing fetch. He's great with kids and other pets. If you're looking for a loyal companion, Rex might be the perfect addition to your family.",

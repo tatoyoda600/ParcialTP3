@@ -31,7 +31,7 @@
                 android:id="@+id/dog_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:padding="5dp"
                 android:textColor="@color/main_atributes_text"/>
@@ -55,7 +55,7 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:textColor="@color/tiny_grey_font"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:padding="15dp"
             android:textAlignment="viewEnd"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/main_atributes_text"/>
     </LinearLayout>
@@ -82,7 +82,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="1dp"
             app:strokeWidth="1px"
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="11dp"
                 android:text="@string/weight"
                 android:textColor="@color/tiny_grey_font"
                 android:textSize="13sp" />
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/owner"
                 android:textColor="@color/tiny_grey_font"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:padding="5dp"/>
 
             <TextView
@@ -219,5 +219,3 @@
 
 
 </LinearLayout>
-
-
