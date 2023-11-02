@@ -5,8 +5,10 @@ import com.pfortbe22bgrupo2.parcialtp3.database.AppDatabase
 import com.pfortbe22bgrupo2.parcialtp3.database.DogDao
 import com.pfortbe22bgrupo2.parcialtp3.database.DogImagesDao
 import com.pfortbe22bgrupo2.parcialtp3.database.UserDao
+import com.pfortbe22bgrupo2.parcialtp3.database.UserFavoritesDao
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogImageEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserEntity
+import com.pfortbe22bgrupo2.parcialtp3.entities.UserFavoritesEntity
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 
 class DatabaseHandler(context: Context) {
@@ -14,6 +16,7 @@ class DatabaseHandler(context: Context) {
     val dogDao: DogDao
     val dogImagesDao: DogImagesDao
     val userDao: UserDao
+    val userFavoritesDao: UserFavoritesDao
 
     companion object {
 
@@ -24,6 +27,7 @@ class DatabaseHandler(context: Context) {
         dogDao = database.dogDao()
         dogImagesDao = database.dogImagesDao()
         userDao = database.userDao()
+        userFavoritesDao = database.userFavoritesDao()
     }
 
     fun getAdoptionList(): List<Dog> {
@@ -112,5 +116,19 @@ class DatabaseHandler(context: Context) {
 
     fun deleteUser(user: UserEntity) {
         return userDao.deleteUser(user)
+    }
+
+    fun getFavoriteIDsByUsername(username: String): List<Int> {
+        return userFavoritesDao.getFavoriteIDsByUsername(username)
+    }
+
+    fun insertFavorite(username: String, dogId: Int): Boolean {
+        try {
+            userFavoritesDao.insertFavorite(UserFavoritesEntity(username, dogId))
+            return true
+        }
+        catch (error: Exception) {
+            return false
+        }
     }
 }
