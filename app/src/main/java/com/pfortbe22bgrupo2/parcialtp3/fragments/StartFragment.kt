@@ -11,13 +11,13 @@ import com.pfortbe22bgrupo2.parcialtp3.viewmodels.StartViewModel
 
 class StartFragment : Fragment() {
     private lateinit var viewModel: StartViewModel
-    lateinit var binding : FragmentStartBinding
+    private lateinit var binding: FragmentStartBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStartBinding.inflate(inflater, container, false)
+        binding = FragmentStartBinding.inflate(inflater,container,false)
         return binding.root
     }
 
