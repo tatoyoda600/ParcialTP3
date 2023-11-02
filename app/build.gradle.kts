@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.pfortbe22bgrupo2.parcialtp3"
-        minSdk = 29
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

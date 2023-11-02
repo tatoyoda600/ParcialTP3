@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
+import com.pfortbe22bgrupo2.parcialtp3.fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
