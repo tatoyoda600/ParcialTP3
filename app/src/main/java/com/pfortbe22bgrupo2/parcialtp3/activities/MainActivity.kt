@@ -17,19 +17,15 @@ import com.google.android.material.navigation.NavigationView
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
 import com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment
-import com.pfortbe22bgrupo2.parcialtp3.fragments.ConfigurationFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.HomeFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.LoginFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.ProfileFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.PublicationFragment
-
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    lateinit var binding : ActivityMainBinding
-    private lateinit var fragmentManager: FragmentManager
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var fragmentManager: FragmentManager
     private lateinit var prefs: SharedPreferences
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         if (key == "night_mode_switch_preferences") {
@@ -74,7 +70,6 @@ class MainActivity : AppCompatActivity() {
         //Sacamos el indicador default de item seleccionado
         binding.bottomNavigation.itemActiveIndicatorColor = null
 
-
         fragmentManager = supportFragmentManager
 
         //Establecemos el Fragmento con el que inicia la aplicacion
@@ -83,15 +78,17 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
         when(item.itemId){
             R.id.profileFragment -> openFragment(ProfileFragment())
-            R.id.configurationFragment -> openFragment(ConfigurationFragment())
+            R.id.configurationFragment -> openFragment(SettingsActivity.SettingsFragment())
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }else{
