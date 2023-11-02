@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/lacobraa"
+            app:srcCompat="@drawable/profile_img"
             android:contentDescription="Foto de usuario"/>
     </androidx.cardview.widget.CardView>
 
