@@ -4,8 +4,8 @@
     android:orientation="vertical"
     android:padding="15dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/round_remove_image_view"
@@ -15,12 +15,11 @@
         android:layout_marginBottom="20dp"
         android:src="@android:drawable/button_onoff_indicator_off" />
     <LinearLayout
-        android:id="@+id/linearLayoutTop"
+        android:id="@+id/linear_layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Columna de la izquierda (linearLayoutLeft) -->
         <LinearLayout
             android:id="@+id/linearLayoutLeft"
             android:layout_width="0dp"
@@ -28,31 +27,53 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <!-- Fila 1 de la columna de la izquierda -->
             <TextView
                 android:id="@+id/dog_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:textSize="20dp" />
+                android:text="@string/name"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textColor="@color/main_atributes_text"/>
 
-            <!-- Fila 2 de la columna de la izquierda -->
-            <TextView
-                android:id="@+id/dog_ubication_text_view"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ubicacion"
-                android:textSize="10sp" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/location_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/location_icon"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/dog_location_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Buenos Aires"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/tiny_grey_font"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <!-- Columna de la derecha -->
         <TextView
             android:id="@+id/dog_age_text_view"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Edad"
-            android:textSize="20dp" />
+            android:padding="15dp"
+            android:text="@string/age"
+            android:textAlignment="viewEnd"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/main_atributes_text"/>
     </LinearLayout>
 
     <LinearLayout
@@ -61,39 +82,68 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Primer CardView -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="30dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="1px"
+            app:strokeColor="@color/border_card_color"
+            android:backgroundTint="@color/white"
+            android:layout_margin="5dp">
 
             <TextView
-                android:id="@+id/aa"
+                android:id="@+id/dog_sex_text_view"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="sex"
-                android:textSize="20dp" />
-        </androidx.cardview.widget.CardView>
-
-        <!-- Segundo CardView -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp">
+                android:layout_gravity="center_horizontal"
+                android:text="Male"
+                android:textColor="@color/description_dog_atributes"
+                android:textSize="10sp"/>
 
             <TextView
-                android:id="@+id/eeee"
+                android:id="@+id/dog_sex_title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Peso"
-                android:textSize="20dp" />
-        </androidx.cardview.widget.CardView>
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/sex"
+                android:textColor="@color/tiny_grey_font"
+                android:textSize="10sp"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="1px"
+            app:strokeColor="#F5F5F5"
+            android:backgroundTint="@color/white"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/dog_weight_text_view"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="2kg"
+                android:textColor="@color/description_dog_atributes"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:id="@+id/dog_weight_title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/weight"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/tiny_grey_font"
+                android:textSize="10sp" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <LinearLayout
@@ -103,49 +153,61 @@
 
         <ImageView
             android:id="@+id/profile_user_pic_image_view"
-            android:layout_width="102dp"
-            android:layout_height="match_parent"
-            android:background="#62B87A"
-            android:src="@android:drawable/ic_menu_myplaces"
-            android:layout_gravity="center" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/owner_image_style"
+            android:src="@drawable/phone_icon"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="249dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- Fila 1 de la columna de la izquierda -->
             <TextView
                 android:id="@+id/dog_owner_text_title_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:textSize="20dp" />
+                android:text="@string/owner"
+                android:textColor="@color/tiny_grey_font"
+                android:textSize="10sp"
+                android:padding="5dp"/>
 
-            <!-- Fila 2 de la columna de la izquierda -->
             <TextView
                 android:id="@+id/dog_owner_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre del dueño"
-                android:textSize="10sp" />
+                android:text="@string/owner_name"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textColor="@color/main_atributes_text" />
 
         </LinearLayout>
 
 
         <ImageView
             android:id="@+id/phone_pic_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="#A557FD"
-            android:src="@android:drawable/stat_sys_phone_call"/>
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:background="@drawable/owner_image_style"
+            android:src="@drawable/phone_icon" />
+
     </LinearLayout>
+
     <TextView
         android:id="@+id/adoption_description_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
         android:textSize="15sp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit."
+        android:text="@string/lorem_ipsum"
+        android:textColor="@color/tiny_grey_font"
         />
+
 </LinearLayout>
