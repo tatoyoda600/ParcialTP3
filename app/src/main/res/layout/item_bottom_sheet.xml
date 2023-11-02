@@ -31,7 +31,6 @@
                 android:id="@+id/dog_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:padding="5dp"
@@ -53,7 +52,6 @@
                     android:id="@+id/dog_location_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Buenos Aires"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:textColor="@color/tiny_grey_font"
@@ -69,7 +67,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="15dp"
-            android:text="@string/age"
             android:textAlignment="viewEnd"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -83,8 +80,8 @@
         android:orientation="horizontal">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginRight="30dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="1dp"
@@ -99,9 +96,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Male"
                 android:textColor="@color/description_dog_atributes"
-                android:textSize="10sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/dog_sex_title_text_view"
@@ -111,12 +107,12 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/sex"
                 android:textColor="@color/tiny_grey_font"
-                android:textSize="10sp"/>
+                android:textSize="13sp"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="1dp"
             app:strokeWidth="1px"
@@ -130,19 +126,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="2kg"
                 android:textColor="@color/description_dog_atributes"
-                android:textSize="10sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/dog_weight_title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/weight"
                 android:layout_marginTop="10dp"
+                android:text="@string/weight"
                 android:textColor="@color/tiny_grey_font"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
@@ -178,7 +173,6 @@
                 android:id="@+id/dog_owner_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/owner_name"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:padding="5dp"
@@ -209,7 +203,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/lorem_ipsum"
             android:textColor="@color/tiny_grey_font"
             android:textSize="16sp" />
     </ScrollView>

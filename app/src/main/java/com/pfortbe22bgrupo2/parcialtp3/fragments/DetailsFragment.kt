@@ -22,9 +22,8 @@ import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 
 class DetailsFragment : Fragment() {
 
-    private lateinit var viewModel: DetailsViewModel
     lateinit var binding: FragmentDetailsBinding
-
+    private lateinit var dog: Dog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,14 +32,23 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        initViews()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //val dog = DetailsFragmentArgs.fromBundle(requireArguments()).dog
+        this.dog = createSampleDog()
+        setShowBottomSheetAction()
     }
 
-    private fun initViews() {
-        val dog = createSampleDog()
-        setupBottomSheet(dog)
+    private fun setShowBottomSheetAction(){
+        val btnShowBottomSheet = binding.btnShowBottomSheet
+        btnShowBottomSheet.setOnClickListener {
+            showBottomSheet(dog)
+        }
+    }
+
+    private fun showBottomSheet(dog: Dog) {
+        val dialog = createBottomSheetDialog(dog)
+        dialog.show()
     }
 
     private fun createSampleDog(): Dog {
@@ -57,34 +65,25 @@ class DetailsFragment : Fragment() {
         )
     }
 
-    private fun setupBottomSheet(dog: Dog) {
-        viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
-
-        //val dog = DetailsFragmentArgs.fromBundle(requireArguments()).dog
+    private fun createBottomSheetDialog(dog: Dog): BottomSheetDialog {
         val view = layoutInflater.inflate(R.layout.item_bottom_sheet, null)
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(view)
 
         val bottomSheetBinding = ItemBottomSheetBinding.bind(view)
-        val dogNameTextView = bottomSheetBinding.dogNameTextView
-        val dogLocationTextView = bottomSheetBinding.dogLocationTextView
-        val dogAgeTextView = bottomSheetBinding.dogAgeTextView
-        val owner = bottomSheetBinding.dogOwnerNameTextView
-        val location = bottomSheetBinding.dogLocationTextView
-        val description = bottomSheetBinding.adoptionDescriptionTextView
-        val weight = bottomSheetBinding.dogWeightTextView
-        val sex = bottomSheetBinding.dogSexTextView
-        val phoneNumber = bottomSheetBinding.phonePicImageView
+        configureBottomSheetContent(bottomSheetBinding, dog)
 
-        dogNameTextView.text = dog.name
-        dogLocationTextView.text = dog.location
-        owner.text = dog.owner
-        location.text = dog.location
-        description.text = dog.text
-        dogAgeTextView.text = getString(R.string.años, dog.age.toString())
-        weight.text = "${dog.weight}kg"
-        sex.text = dog.sex
+        setOwnersPhoneCallAction(bottomSheetBinding)
 
+        val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
+        bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
+        bottomSheetBehavior.isHideable = true
+
+        return dialog
+    }
+
+    private fun setOwnersPhoneCallAction(binding: ItemBottomSheetBinding){
+        val phoneNumber = binding.phonePicImageView
         phoneNumber.setOnClickListener {
             val phoneNumber = dog.phone
             if (!phoneNumber.isNullOrEmpty()) {
@@ -96,12 +95,17 @@ class DetailsFragment : Fragment() {
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
-
-        /*TO DO*/
-        //Setear la imagen de perfil del sueño
-        val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
-        bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
-        bottomSheetBehavior.isHideable = true
-        dialog.show()
     }
+
+    private fun configureBottomSheetContent(binding: ItemBottomSheetBinding, dog: Dog) {
+        binding.dogNameTextView.text = dog.name
+        binding.dogLocationTextView.text = dog.location
+        binding.dogAgeTextView.text = getString(R.string.años, dog.age.toString())
+        binding.dogOwnerNameTextView.text = dog.owner
+        binding.dogLocationTextView.text = dog.location
+        binding.adoptionDescriptionTextView.text = dog.text
+        binding.dogWeightTextView.text = "${dog.weight}kg"
+        binding.dogSexTextView.text = dog.sex
+    }
+
 }
