@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pfortbe22bgrupo2.parcialtp3.R
 
-class ImageAdapter(var context: Context, var arrayList: ArrayList<String>) :
+class ImageAdapter(var context: Context, var img_array: Array<String>?) :
     RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
     var setItemClickListener: OnItemClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,17 +19,17 @@ class ImageAdapter(var context: Context, var arrayList: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(context).load(arrayList[position]).into(holder.imageView)
+        Glide.with(context).load(img_array?.get(position)).into(holder.imageView)
         holder.itemView.setOnClickListener { view: View? ->
             setItemClickListener!!.onClick(
                 holder.imageView,
-                arrayList[position]
+                img_array?.get(position)
             )
         }
     }
 
     override fun getItemCount(): Int {
-        return arrayList.size
+        return img_array?.size ?: 1
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
