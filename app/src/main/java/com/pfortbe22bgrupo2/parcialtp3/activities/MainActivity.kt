@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
 import com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment
+import com.pfortbe22bgrupo2.parcialtp3.fragments.DetailsFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.HomeFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.LoginFragment
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.homeFragment2 -> openFragment(HomeFragment())
-                R.id.adoptedFragment2 -> openFragment(AdoptedFragment())
+                R.id.adoptedFragment2 -> openFragment(DetailsFragment()) //openFragment(AdoptedFragment())
                 R.id.publicationFragment2 -> openFragment(PublicationFragment())
                 R.id.favoritesFragment2 -> openFragment(FavoritesFragment())
             }

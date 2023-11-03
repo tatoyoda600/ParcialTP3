@@ -65,22 +65,22 @@ class DetailsFragment : Fragment() {
 
 
         val adapter = ImageAdapter(requireContext(), array_imgs)
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-    }
+        adapter.setOnItemClickListener { imageView: ImageView?, imagePath: String? ->
+            val intent = Intent(requireContext(), ImageViewActivity::class.java).apply {
+                putExtra("image", imagePath)
+            }
 
-    private fun startImageViewActivity(imagePath: String?, imageView: ImageView?) {
-        val intent = Intent(requireContext(), ImageViewActivity::class.java).apply {
-            putExtra("image", imagePath)
+            val options = ActivityOptions.makeSceneTransitionAnimation(
+                requireActivity(),
+                imageView,
+                "image"
+            ).toBundle()
+
+            startActivity(intent, options)
         }
 
-        val options = ActivityOptions.makeSceneTransitionAnimation(
-            requireActivity(),
-            imageView,
-            "image"
-        ).toBundle()
-
-        startActivity(intent, options)
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
     }
 
     private fun setShowBottomSheetAction() {

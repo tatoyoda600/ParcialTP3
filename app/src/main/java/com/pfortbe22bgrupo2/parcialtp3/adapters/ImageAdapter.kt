@@ -11,20 +11,21 @@ import com.pfortbe22bgrupo2.parcialtp3.R
 
 class ImageAdapter(var context: Context, var img_array: Array<String>?) :
     RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
-    var setItemClickListener: OnItemClickListener? = null
+    var clickEvent: ((imageView: ImageView?, imagePath: String?) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View =
-            LayoutInflater.from(context).inflate(R.layout.image_list_item, parent, false)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.image_list_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(context).load(img_array?.get(position)).into(holder.imageView)
-        holder.itemView.setOnClickListener { view: View? ->
-            setItemClickListener!!.onClick(
-                holder.imageView,
-                img_array?.get(position)
-            )
+        holder.itemView.setOnClickListener { view: View ->
+            clickEvent?.let {
+                it(
+                    holder.imageView,
+                    img_array?.get(position)
+                )
+            }
         }
     }
 
@@ -40,11 +41,7 @@ class ImageAdapter(var context: Context, var img_array: Array<String>?) :
         }
     }
 
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener?) {
-        this.setItemClickListener = onItemClickListener
-    }
-
-    interface OnItemClickListener {
-        fun onClick(imageView: ImageView?, path: String?)
+    fun setOnItemClickListener(clickEvent: (imageView: ImageView?, imagePath: String?) -> Unit) {
+        this.clickEvent = clickEvent
     }
 }
