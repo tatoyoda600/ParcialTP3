@@ -40,24 +40,6 @@ class DetailsFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    override fun onStart() {
-        super.onStart()
-        initViews()
-    }
-
-    private fun initViews() {
-        binding.btnShowBottomSheet.setOnClickListener {
-            val view = layoutInflater.inflate(R.layout.item_bottom_sheet, null)
-            val dialog = BottomSheetDialog(requireContext())
-            dialog.setContentView(view)
-
-            val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
-            bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(400)
-            bottomSheetBehavior.isHideable = false
-            dialog.show()
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //val dog = DetailsFragmentArgs.fromBundle(requireArguments()).dog
@@ -139,7 +121,7 @@ class DetailsFragment : Fragment() {
         setOwnersPhoneCallAction(bottomSheetBinding)
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
-        //bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
+        bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
         bottomSheetBehavior.isHideable = true
 
         return dialog
