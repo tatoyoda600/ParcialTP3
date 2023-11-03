@@ -52,19 +52,19 @@ class DatabaseHandler(context: Context) {
         return output
     }
 
-    fun insertAdoption(dog: Dog): Boolean {
+    fun insertAdoption(dog: Dog): Int {
         val entity = dog.toEntity()
         if (entity != null) {
             try {
-                val id = dogDao.insertAdoption(entity)
-                insertDogImages(id.toInt(), dog.image_urls?: arrayOf())
-                return true
+                val id = dogDao.insertAdoption(entity).toInt()
+                insertDogImages(id, dog.image_urls?: arrayOf())
+                return id
             }
             catch (error: Exception) {
-                return false
+                return -1
             }
         }
-        return false
+        return -1
     }
 
     fun deleteAdoption(dog: Dog) {
@@ -91,7 +91,7 @@ class DatabaseHandler(context: Context) {
         return dogImagesDao.getDogImageCountById(id)?: 0
     }
 
-    fun insertDogImages(dogId: Int, imageUrls: Array<String>) {
+    private fun insertDogImages(dogId: Int, imageUrls: Array<String>) {
         var count = getDogImageCountById(dogId)
         for (image in imageUrls) {
             val entity = DogImageEntity(dogId, count + 1, image)

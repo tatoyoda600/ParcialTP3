@@ -11,10 +11,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop">
 
         <TextView
             android:id="@+id/publication_title"
@@ -29,11 +29,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dogNameInput"
-                android:layout_width="269dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:hint="@string/publication_name_input"
@@ -43,20 +43,56 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dogAgeInput"
-                android:layout_width="269dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:hint="@string/publication_age_input"
-                android:inputType="number"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dogAgeInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:hint="@string/publication_age_input"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/sexInput"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:checkedButton="@id/maleInput"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/maleInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/publication_male_input"
+                    android:textSize="14sp" />
+
+                <RadioButton
+                    android:id="@+id/femaleInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/publication_female_input"
+                    android:textSize="14sp" />
+
+            </RadioGroup>
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -65,7 +101,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/locationInput"
-                android:layout_width="269dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:hint="@string/publication_location_input"
@@ -79,12 +115,13 @@
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sexInput"
-                android:layout_width="269dp"
+                android:id="@+id/weightInput"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:hint="@string/publication_sex_input"
-                android:inputType="text"
+                android:hint="@string/publication_weight_input"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,24 +131,25 @@
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/weightInput"
-                android:layout_width="269dp"
-                android:layout_height="50dp"
+                android:id="@+id/urlsInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:hint="@string/publication_weight_input"
-                android:inputType="numberDecimal"
-                android:maxLines="1" />
+                android:gravity="top"
+                android:hint="@string/publication_urls_input"
+                android:inputType="textMultiLine"
+                android:maxLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInput"
-                android:layout_width="269dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="top"
@@ -135,28 +173,28 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guidelineTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="66dp" />
+        app:layout_constraintGuide_begin="32dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="66dp" />
+        app:layout_constraintGuide_end="32dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guidelineLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="48dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/guidelineRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

@@ -84,6 +84,9 @@ data class Dog(
     }
 
     companion object {
+        const val MALE = "male"
+        const val FEMALE = "female"
+
         @JvmField
         val CREATOR: Parcelable.Creator<Dog> = object : Parcelable.Creator<Dog> {
             override fun createFromParcel(parcel: Parcel): Dog {
