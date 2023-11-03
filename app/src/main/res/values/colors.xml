@@ -10,4 +10,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="tiny_grey_font">#B4AEAE</color>
+    <color name="description_dog_atributes">#827397</color>
+    <color name="border_card_color">#F5F5F5</color>
+    <color name="main_atributes_text">#5F5B5B</color>
 </resources>
