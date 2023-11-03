@@ -217,5 +217,4 @@
         android:textSize="17sp"
         android:text="@string/to_adopt" />
 
-
 </LinearLayout>

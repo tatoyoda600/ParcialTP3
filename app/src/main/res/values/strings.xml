@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Parcial TP3</string>
+    <string name="name">Nombre</string>
+    <string name="location">Ubicación</string>
+    <string name="age">Edad</string>
+    <string name="sex">Sex</string>
+    <string name="weight">Peso</string>
+    <string name="owner">Dueño</string>
+    <string name="owner_name">Nombre del dueño</string>
+    <string name="to_adopt">Adoptar</string>
+    <string name="años">%1$s años</string>
+    <string name="error_message_phone_number_not_avaliable">El número de teléfono del dueño no está disponible.</string>
     <string name="night_mode">Modo Oscuro</string>
     <string name="upload_picture">Subir Foto</string>
     <string name="user_cellphone">Telefono del Usuario</string>
