@@ -17,6 +17,8 @@ import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.activities.ImageViewActivity
 import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentDetailsBinding
+import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
+import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
 
 class DetailsFragment : Fragment() {
@@ -137,7 +139,7 @@ class DetailsFragment : Fragment() {
         setOwnersPhoneCallAction(bottomSheetBinding)
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
-        bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
+        //bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
         bottomSheetBehavior.isHideable = true
 
         return dialog
