@@ -58,6 +58,7 @@ class DetailsFragment : Fragment() {
             location = "Recoleta, Buenos Aires",
             sex = "Male",
             weight = 15.5f,
+            owner_username = "null",
             owner = "Juan Martin Sarmiento",
             phone = "1123478540",
             text = "Rex is a friendly and energetic dog looking for a loving home. He enjoys long walks in the park and playing fetch. He's great with kids and other pets. If you're looking for a loyal companion, Rex might be the perfect addition to your family.",
