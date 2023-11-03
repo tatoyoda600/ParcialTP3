@@ -9,7 +9,7 @@
         android:title="Perfil"/>
 
     <item
-        android:id="@+id/configurationFragment"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/outline_settings_24"
         android:title="Configuracion"/>
 

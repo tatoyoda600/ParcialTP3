@@ -11,8 +11,8 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="313dp"
-            android:layout_height="417dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:orientation="vertical"
@@ -36,17 +36,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/userName_editText"
                     android:hint="@string/user_name"
                     android:maxLines="1"
-                    android:layout_width="269dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     />
-
             </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_editTExt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/name"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -55,12 +67,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/cellphone_editText"
-                    android:layout_width="269dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:hint="@string/user_cellphone"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
                 android:id="@+id/sign_up_button"
@@ -68,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="25dp"
-                android:text="@string/login"
+                android:text="@string/register"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="20dp"

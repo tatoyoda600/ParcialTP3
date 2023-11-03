@@ -4,6 +4,8 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 data class Dog(
     val id: Int,
@@ -99,6 +101,7 @@ data class Dog(
         }
 
         fun createFromEntity(dogEntity: DogEntity, databaseHandler: DatabaseHandler): Dog {
+
             val userEntity = databaseHandler.getUserByUsername(dogEntity.owner_username)!!
             val imageUrls = databaseHandler.getDogImagesById(dogEntity.id)
 

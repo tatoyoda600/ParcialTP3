@@ -10,8 +10,11 @@ import com.pfortbe22bgrupo2.parcialtp3.entities.DogImageEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserFavoritesEntity
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class DatabaseHandler(context: Context) {
+class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) {
     val database: AppDatabase
     val dogDao: DogDao
     val dogImagesDao: DogImagesDao
@@ -100,7 +103,7 @@ class DatabaseHandler(context: Context) {
         }
     }
 
-    fun getUserByUsername(username: String): UserEntity? {
+     fun getUserByUsername(username: String): UserEntity? {
         return userDao.getUserByUsername(username)
     }
 
