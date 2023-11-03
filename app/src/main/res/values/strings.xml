@@ -13,10 +13,12 @@
     <string name="Bienvenida">Hola</string>
     <string name="publication_title">Poner en Adopcion</string>
     <string name="publication_name_input">Nombre del Perro</string>
-    <string name="publication_age_input">Edad del Perro</string>
+    <string name="publication_age_input">Edad</string>
     <string name="publication_location_input">Ubicacion</string>
-    <string name="publication_sex_input">Sexo del Perro</string>
-    <string name="publication_weight_input">Peso del Perro</string>
+    <string name="publication_male_input">Macho</string>
+    <string name="publication_female_input">Hembra</string>
+    <string name="publication_weight_input">Peso (kg)</string>
+    <string name="publication_urls_input">URLs de imagenes</string>
     <string name="publication_text_input">Descripcion / Comentarios</string>
     <string name="publication_submit">Confirmar</string>
 </resources>

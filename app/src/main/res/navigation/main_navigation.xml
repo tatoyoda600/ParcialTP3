@@ -56,8 +56,8 @@
         android:label="fragment_publication"
         tools:layout="@layout/fragment_publication" >
         <action
-            android:id="@+id/action_publicationFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_publicationFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
