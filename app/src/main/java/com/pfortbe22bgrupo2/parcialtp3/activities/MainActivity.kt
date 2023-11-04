@@ -5,8 +5,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,6 +15,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
+import com.pfortbe22bgrupo2.parcialtp3.databinding.NavHeaderBinding
+import com.pfortbe22bgrupo2.parcialtp3.fragments.SettingsFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.DetailsFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment
@@ -24,11 +24,14 @@ import com.pfortbe22bgrupo2.parcialtp3.fragments.HomeFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.LoginFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.ProfileFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.PublicationFragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
+
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var fragmentManager: FragmentManager
-    private lateinit var prefs: SharedPreferences
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         if (key == "night_mode_switch_preferences") {
             val nightMode = sharedPreferences.getBoolean(key, false)
@@ -45,6 +48,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
 
         //Hacemos que la Toolbar actue como ActionBar
         setSupportActionBar(binding.toolbar)
@@ -74,8 +80,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fragmentManager = supportFragmentManager
 
-        //Establecemos el Fragmento con el que inicia la aplicacion
-        openFragment(LoginFragment())
 
         /*
         setContentView(R.layout.fragment_details)
@@ -115,7 +119,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when(item.itemId){
             R.id.profileFragment -> openFragment(ProfileFragment())
-            R.id.configurationFragment -> openFragment(SettingsActivity.SettingsFragment())
+            R.id.settingsFragment -> openFragment(SettingsFragment())
+            //R.id.configurationFragment -> openFragment(SettingsActivity.SettingsFragment())
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -134,20 +139,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.nav_host, fragment)
         fragmentTransaction.commit()
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        applySettings()
-        prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
 
     }
 
-    private fun applySettings() {
-        val nightMode = prefs.getBoolean("night_mode_switch_preferences",false)
-        if (nightMode){
-            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
-        }else{
-            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-        }
-        delegate.applyDayNight()
-    }
 
 }

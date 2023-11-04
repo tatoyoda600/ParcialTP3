@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,10 +52,21 @@
                 android:contentDescription="@string/profile_picture_description" />
 
             <TextView
-                android:id="@+id/name_textView"
+                android:id="@+id/userName_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/user_name"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/name_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
                 android:padding="10dp"
                 android:textSize="15sp"
                 android:textAlignment="center"
@@ -75,8 +87,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/upload_picture"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/delete_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_acount"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

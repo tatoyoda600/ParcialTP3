@@ -41,4 +41,6 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="error_message_removing_position_from_favorites">Error while removing item from favorites</string>
+    <string name="register">Registrarse</string>
+    <string name="delete_acount">Eliminar Cuenta</string>
 </resources>
