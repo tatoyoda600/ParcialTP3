@@ -70,4 +70,8 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
         dialog.show()
     }
 
+    fun updateData(favoriteDogs: MutableList<Dog>) {
+        dogList = favoriteDogs.toMutableList()
+        notifyDataSetChanged()
+    }
 }
