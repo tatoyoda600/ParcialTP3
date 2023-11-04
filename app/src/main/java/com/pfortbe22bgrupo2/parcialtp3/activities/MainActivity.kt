@@ -1,6 +1,5 @@
 package com.pfortbe22bgrupo2.parcialtp3.activities
 
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +13,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.pfortbe22bgrupo2.parcialtp3.R
+import android.app.ActivityOptions
+import android.content.Context
+import android.content.Intent
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.NavHeaderBinding
 import com.pfortbe22bgrupo2.parcialtp3.fragments.SettingsFragment
@@ -27,7 +33,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
-
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var fragmentManager: FragmentManager
@@ -47,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        applySettings()
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
 
@@ -65,6 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //Funcionamiento de bottomNav
         binding.bottomNavigation.background = null
         binding.bottomNavigation.setOnItemSelectedListener { item ->
+            supportActionBar?.title = item.title.toString()
             when(item.itemId){
                 R.id.homeFragment2 -> openFragment(HomeFragment())
                 R.id.adoptedFragment2 -> openFragment(AdoptedFragment())
@@ -78,6 +84,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigation.itemActiveIndicatorColor = null
 
         fragmentManager = supportFragmentManager
+
+        setDrawerHeaderName()
 
 
         /*
@@ -113,13 +121,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         */
     }
 
+    private fun setDrawerHeaderName() {
+        val pref = this.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userName = pref.getString("userName","").toString()
+        val header = binding.navigationDrawer.getHeaderView(0)
+        header.findViewById<TextView>(R.id.name_nav_header).text = userName
+    }
+
+    private fun applySettings() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val nightMode = prefs.getBoolean("night_mode_switch_preferences",false)
+        if (nightMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        delegate.applyDayNight()
+    }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
+        supportActionBar?.title = item.title.toString()
         when(item.itemId){
             R.id.profileFragment -> openFragment(ProfileFragment())
             R.id.settingsFragment -> openFragment(SettingsFragment())
-            //R.id.configurationFragment -> openFragment(SettingsActivity.SettingsFragment())
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
