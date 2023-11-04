@@ -49,11 +49,10 @@ class DetailsActivity : AppCompatActivity() {
 
         setOwnersPhoneCallAction(bottomSheetBinding)
 
-        // Configurar BottomSheetBehavior
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
-        bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height) // Altura parcial al inicio
-        bottomSheetBehavior.isHideable = false // No ocultar el bottom sheet
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // Iniciar colapsado
+        bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
+        bottomSheetBehavior.isHideable = false
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         return dialog
     }
