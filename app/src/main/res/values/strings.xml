@@ -8,8 +8,8 @@
     <string name="owner">Dueño</string>
     <string name="owner_name">Nombre del dueño</string>
     <string name="to_adopt">Adoptar</string>
-    <string name="años">%1$s años</string>
-    <string name="error_message_phone_number_not_avaliable">El número de teléfono del dueño no está disponible.</string>
+    <string name="years">%1$s años</string>
+    <string name="error_message_phone_number_not_available">El número de teléfono del dueño no está disponible.</string>
     <string name="night_mode">Modo Oscuro</string>
     <string name="upload_picture">Subir Foto</string>
     <string name="user_cellphone">Telefono del Usuario</string>
@@ -32,10 +32,17 @@
     <string name="publication_text_input">Descripcion / Comentarios</string>
     <string name="publication_submit">Confirmar</string>
     <string name="fotos_del_perro">Fotos del perro</string>
-    <string name="long_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit.</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec orci ante. Proin sed nulla a neque varius vulputate. Sed pharetra fringilla eros ut egestas. Nullam pulvinar orci quis velit efficitur vestibulum. Ut eu laoreet mauris. Ut auctor tortor eget quam condimentum suscipit. </string>
     <string name="mostrar_bottom_sheet">mostrar bottom sheet</string>
+    <string name="adoption_image_description_preview">dog adoption description preview</string>
+    <string name="add_to_fav_icon_image">add to fav icon image</string>
+    <string name="dog_paw_image_icon">dog paw image icon</string>
+    <string name="remove_from_favs_modal_title">Eliminar de favoritos</string>
+    <string name="remove_from_favs_modal_text">¿Estás seguro de que deseas eliminar este elemento de favoritos?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="error_message_removing_position_from_favorites">Error while removing item from favorites</string>
     <string name="register">Registrarse</string>
     <string name="delete_acount">Eliminar Cuenta</string>
->>>>>>> fer
+    <string name="no_elements_found">No se han encontrado elementos en la lista de favoritos</string>
+    <string name="error_initialization_recycler_view_failed">Error al inicializar el adaptador del RecyclerView: %1$s</string>
 </resources>

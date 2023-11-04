@@ -86,8 +86,8 @@ data class Dog(
     }
 
     companion object {
-        const val MALE = "male"
-        const val FEMALE = "female"
+        const val MALE = "Macho"
+        const val FEMALE = "Hembra"
 
         @JvmField
         val CREATOR: Parcelable.Creator<Dog> = object : Parcelable.Creator<Dog> {
