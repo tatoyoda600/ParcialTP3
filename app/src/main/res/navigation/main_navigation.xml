@@ -21,17 +21,18 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+    <activity
+        android:id="@+id/detailsActivity"
+        android:name="com.pfortbe22bgrupo2.parcialtp3.activities.DetailsActivity"
+        android:label="activity_details"
+        tools:layout="@layout/activity_details">
+
         <argument
             android:name="dog"
             app:argType="com.pfortbe22bgrupo2.parcialtp3.models.Dog" />
-    </fragment>
+    </activity>
     <fragment
         android:id="@+id/adoptedFragment"
         android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment"
@@ -39,7 +40,7 @@
         tools:layout="@layout/fragment_adopted" >
         <action
             android:id="@+id/action_adoptedFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsActivity" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -47,8 +48,8 @@
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
-            android:id="@+id/action_favoritesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_favoritesFragment_to_detailsActivity"
+            app:destination="@id/detailsActivity" />
     </fragment>
     <fragment
         android:id="@+id/publicationFragment"
@@ -56,8 +57,8 @@
         android:label="fragment_publication"
         tools:layout="@layout/fragment_publication" >
         <action
-            android:id="@+id/action_publicationFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_publicationFragment_to_detailsActivity"
+            app:destination="@id/detailsActivity" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

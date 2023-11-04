@@ -11,7 +11,9 @@ import com.pfortbe22bgrupo2.parcialtp3.R
 
 class ImageAdapter(var context: Context, var img_array: Array<String>?) :
     RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+
     private var clickEvent: ((imageView: ImageView?, imagePath: String?) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.image_list_item, parent, false)
         return ViewHolder(view)

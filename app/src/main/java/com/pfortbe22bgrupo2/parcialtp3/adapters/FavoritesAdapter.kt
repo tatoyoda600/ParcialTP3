@@ -8,13 +8,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemDogBinding
-import com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment
 import com.pfortbe22bgrupo2.parcialtp3.holders.FavoritesItemHolder
-import com.pfortbe22bgrupo2.parcialtp3.listeners.FavoritesItemClickListener
+import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 
-class FavoritesAdapter(private val context: Context, private var dogList: MutableList<Dog>
-): RecyclerView.Adapter<FavoritesItemHolder>() {
+class FavoritesAdapter(private val context: Context, private var dogList: MutableList<Dog>, private val showAdoptionDetails: ShowAdoptionDetailsListener): RecyclerView.Adapter<FavoritesItemHolder>() {
 
     private lateinit var binding: ItemDogBinding
 
@@ -29,11 +27,11 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
         holder.setName(dogList[position].name!!)
         holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
         holder.setDogAge(dogList[position].age.toString())
-        //holder.setDogBreed()
-        //holder.setDogSubBreed()
+        //holder.setDogBreed("dsada")
+        //holder.setDogSubBreed("dasdsa")
         holder.setDogSex(dogList[position].sex.toString())
         holder.getCardLayout().setOnClickListener() {
-            //showAdoptionDetails.showDetails(dogList[position])
+            showAdoptionDetails.onItemClickAction(position)
         }
         holder.getSaveButtonItem().setOnClickListener{
             setOnRemoveItemAction(position)
