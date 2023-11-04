@@ -1,5 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.activities
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,7 +15,16 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         applySettings()
+        verifyCurrentUser()
+    }
 
+    private fun verifyCurrentUser() {
+        val pref = this.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userName = pref.getString("userName",null)
+        if (userName != null){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 
