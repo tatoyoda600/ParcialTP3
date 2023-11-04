@@ -14,8 +14,10 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.pfortbe22bgrupo2.parcialtp3.R
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //Funcionamiento de bottomNav
         binding.bottomNavigation.background = null
         binding.bottomNavigation.setOnItemSelectedListener { item ->
+            supportActionBar?.title = item.title.toString()
             when(item.itemId){
                 R.id.homeFragment2 -> openFragment(HomeFragment())
                 R.id.adoptedFragment2 -> openFragment(DetailsFragment()) //openFragment(AdoptedFragment())
@@ -82,6 +85,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigation.itemActiveIndicatorColor = null
 
         fragmentManager = supportFragmentManager
+
+        setDrawerHeaderName()
 
 
         /*
@@ -117,6 +122,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         */
     }
 
+    private fun setDrawerHeaderName() {
+        val pref = this.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userName = pref.getString("userName","").toString()
+        val header = binding.navigationDrawer.getHeaderView(0)
+        header.findViewById<TextView>(R.id.name_nav_header).text = userName
+    }
+
     private fun applySettings() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val nightMode = prefs.getBoolean("night_mode_switch_preferences",false)
@@ -130,11 +142,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
+        supportActionBar?.title = item.title.toString()
         when(item.itemId){
             R.id.profileFragment -> openFragment(ProfileFragment())
             R.id.settingsFragment -> openFragment(SettingsFragment())
-            //R.id.configurationFragment -> openFragment(SettingsActivity.SettingsFragment())
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
