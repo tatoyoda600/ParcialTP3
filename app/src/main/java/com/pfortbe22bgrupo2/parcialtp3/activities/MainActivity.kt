@@ -18,7 +18,6 @@ import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.NavHeaderBinding
 import com.pfortbe22bgrupo2.parcialtp3.fragments.SettingsFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment
-import com.pfortbe22bgrupo2.parcialtp3.fragments.DetailsFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.HomeFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.LoginFragment
