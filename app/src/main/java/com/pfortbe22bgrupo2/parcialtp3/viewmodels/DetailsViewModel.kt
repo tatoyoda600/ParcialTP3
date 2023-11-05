@@ -6,10 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailsViewModel : ViewModel() {
-    private lateinit var databaseHandler: DatabaseHandler
+@HiltViewModel
+class DetailsViewModel @Inject constructor(
+    private val databaseHandler: DatabaseHandler
+): ViewModel() {
+
+    private val selectedDog: MutableLiveData<Dog> = MutableLiveData()
 
     // Método en tu ViewModel que realiza la operación de base de datos
     fun getDogImagesById(id: Int) {
@@ -20,7 +26,6 @@ class DetailsViewModel : ViewModel() {
             // Actualiza la UI con los datos, si es necesario
         }
     }
-    private val selectedDog: MutableLiveData<Dog> = MutableLiveData()
 
     fun setSelectedDog(dog: Dog) {
         selectedDog.value = dog

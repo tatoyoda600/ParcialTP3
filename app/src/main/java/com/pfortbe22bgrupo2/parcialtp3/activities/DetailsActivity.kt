@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -17,10 +19,10 @@ import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityDetailsBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
+import com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
-import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 class DetailsActivity @Inject constructor(private val favoritesViewModel: FavoritesViewModel, private val username: String) : AppCompatActivity() {
@@ -34,7 +36,6 @@ class DetailsActivity @Inject constructor(private val favoritesViewModel: Favori
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         detailsViewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
         setContentView(binding.root)
-        // Obtener el perro de los argumentos o de donde corresponda
         val dog = DetailsActivityArgs.fromBundle(intent.extras!!).dog
         showBottomSheet(dog)
     }
@@ -54,8 +55,8 @@ class DetailsActivity @Inject constructor(private val favoritesViewModel: Favori
                 //envio el dog a la lista de adoptados calculo
                 detailsViewModel.adoptFromFavorites(dog.id)
                 favoritesViewModel.deleteFavorite(username, dog.id) //esto es así? se debería actualizar la lista de favoritos desde acá? chequear xd
-                // de details ir a adoptados con el perro ya en mano ah, queda pasar el perro para que esa actividad pueda mostrarlo?
                 Log.i("DetailsActivity", "Adopted dog: ${dog.name}")
+                goToAdoptedFragment()
             }
             builder.setNegativeButton(R.string.no) { dialog, which ->
                 Log.i("DetailsActivity", R.string.no.toString())
@@ -64,6 +65,7 @@ class DetailsActivity @Inject constructor(private val favoritesViewModel: Favori
             dialog.show()
         }
     }
+
 
     private fun showBottomSheet(dog: Dog) {
         val dialog = createBottomSheetDialog(dog)
@@ -134,4 +136,12 @@ class DetailsActivity @Inject constructor(private val favoritesViewModel: Favori
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(false)
     }
+
+        private fun goToAdoptedFragment() {
+            val fm: FragmentManager = supportFragmentManager
+            val ft: FragmentTransaction = fm.beginTransaction()
+            ft.add(R.id.nav_host, AdoptedFragment());
+            ft.commit()
+        }
+
 }
