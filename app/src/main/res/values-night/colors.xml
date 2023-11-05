@@ -3,5 +3,6 @@
     <color name="ColorSelected">#FFFFFF</color>
     <color name="ColorUnselected">@android:color/darker_gray</color>
     <color name="drawerColors">@android:color/darker_gray</color>
+    <color name="buttonColor">#000000</color>
 
 </resources>
