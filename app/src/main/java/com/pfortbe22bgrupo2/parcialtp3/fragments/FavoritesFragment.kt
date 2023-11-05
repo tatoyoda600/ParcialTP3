@@ -1,5 +1,6 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,8 +16,12 @@ import com.pfortbe22bgrupo2.parcialtp3.adapters.FavoritesAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentFavoritesBinding
 import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
@@ -25,6 +30,7 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     private lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var favoriteDogs: MutableList<Dog>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +47,11 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     }
 
      private fun loadData() {
-         val username = "????"
-         favoritesViewModel.loadFavoriteDogs(username)
+
+         val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+         val userName = pref.getString("userName","").toString()
+
+         favoritesViewModel.loadFavoriteDogs(userName)
          favoritesViewModel.favoriteDogs.observe(viewLifecycleOwner) { favoriteDogsList ->
              this.favoriteDogs = favoriteDogsList.toMutableList()
              if(favoriteDogs.isEmpty()) {

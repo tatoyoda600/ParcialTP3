@@ -8,6 +8,7 @@ class DogsList {
 
     init {
         dogList.add(Dog(
+            id = 1,
             name = "Rex",
             age = 3,
             location = "Recoleta, Buenos Aires",
@@ -20,6 +21,7 @@ class DogsList {
             image_urls = arrayOf("https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg", "https://www.eltiempo.com/files/image_640_428/uploads/2023/01/05/63b73981e5a99.jpeg", "https://www.65ymas.com/uploads/s1/10/30/25/5/bigstock-421234682_1_621x621.jpeg")
         ))
         dogList.add(Dog(
+            id = 2,
             name = "Clara",
             age = 2,
             location = "Núñez, Buenos Aires",
@@ -32,6 +34,7 @@ class DogsList {
             image_urls = arrayOf("https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=675,fit=cover/article/main-picture/6391e5e6004f2924156742.jpg", "https://www.bunko.pet/__export/1638228692080/sites/debate/img/2021/11/29/cocker_spaniel_crop1638228652251.jpeg_554688468.jpeg")
         ))
         dogList.add(Dog(
+            id = 3,
             name = "Hulk",
             age = 3,
             location = "San Antonio de Padua, Buenos Aires",
@@ -44,6 +47,7 @@ class DogsList {
             image_urls = arrayOf("https://www.terranea.es/assets/images/razas/dogo_de_burdeos.jpg", "https://estaticos-cdn.elperiodico.com/clip/54639c02-8fda-41dd-bc03-1e7c81a3e2fb_16-9-aspect-ratio_default_0.jpg")
         ))
         dogList.add(Dog(
+            id = 4,
             name = "Frank",
             age = 2,
             location = "USA",
@@ -56,6 +60,7 @@ class DogsList {
             image_urls = arrayOf("https://ichef.bbci.co.uk/news/660/cpsprodpb/48DD/production/_107435681_perro1.jpg", "https://images.hola.com/imagenes/mascotas/20200831174373/razas-de-perro-mas-populares-pug-carlino/0-860-24/pug-m.jpg?tx=w_680", "https://tecolotito.elsiglodedurango.com.mx/cdn-cgi/image/format=auto,width=1024/i/2023/04/1163645.jpeg")
         ))
         dogList.add(Dog(
+            id = 5,
             name = "Lucho",
             age = 4,
             location = "Moreno, Buenos Aires",
