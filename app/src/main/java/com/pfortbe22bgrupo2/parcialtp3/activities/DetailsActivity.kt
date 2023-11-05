@@ -20,11 +20,15 @@ import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
-class DetailsActivity (private var favoritesViewModel: FavoritesViewModel, private val username: String) : AppCompatActivity() {
+class DetailsActivity @Inject constructor(private val favoritesViewModel: FavoritesViewModel, private val username: String) : AppCompatActivity() {
+
     lateinit var binding: ActivityDetailsBinding
     private lateinit var dog: Dog
     private lateinit var detailsViewModel: DetailsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
