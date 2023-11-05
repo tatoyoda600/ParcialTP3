@@ -11,8 +11,11 @@ import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemDogBinding
 import com.pfortbe22bgrupo2.parcialtp3.holders.FavoritesItemHolder
 import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
 
-class FavoritesAdapter(private val context: Context, private var dogList: MutableList<Dog>, private val showAdoptionDetails: ShowAdoptionDetailsListener): RecyclerView.Adapter<FavoritesItemHolder>() {
+class FavoritesAdapter(private val context: Context, private var dogList: MutableList<Dog>, private val showAdoptionDetails: ShowAdoptionDetailsListener,
+                       private val favoritesViewModel: FavoritesViewModel,
+                       private val username: String): RecyclerView.Adapter<FavoritesItemHolder>() {
 
     private lateinit var binding: ItemDogBinding
 
@@ -43,8 +46,9 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
         builder.setTitle(context.getString(R.string.remove_from_favs_modal_title))
         builder.setMessage(context.getString(R.string.remove_from_favs_modal_text))
         builder.setPositiveButton(R.string.yes) { dialog, which ->
-            //remuevo el elemento
-            dogList.removeAt(position)
+            val dog = dogList[position]
+            favoritesViewModel.deleteFavorite(username, dog.id)
+            dogList.removeAt(position) //es necesario? probar
 
             // notifico la eliminación del elemento en la posición 'position'
             notifyItemRemoved(position)
@@ -64,7 +68,7 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, which ->
-            Log.d("FavoritesAdapter", R.string.no.toString())
+            Log.i("FavoritesAdapter", R.string.no.toString())
         }
         val dialog = builder.create()
         dialog.show()

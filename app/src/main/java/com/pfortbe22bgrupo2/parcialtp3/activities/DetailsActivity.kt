@@ -4,10 +4,13 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pfortbe22bgrupo2.parcialtp3.R
@@ -15,22 +18,47 @@ import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityDetailsBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
+import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity (private var favoritesViewModel: FavoritesViewModel, private val username: String) : AppCompatActivity() {
     lateinit var binding: ActivityDetailsBinding
     private lateinit var dog: Dog
-
+    private lateinit var detailsViewModel: DetailsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
+        detailsViewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
         setContentView(binding.root)
+        // Obtener el perro de los argumentos o de donde corresponda
+        val dog = DetailsActivityArgs.fromBundle(intent.extras!!).dog
+        showBottomSheet(dog)
     }
 
     override fun onStart() {
         super.onStart()
-        dog = DetailsActivityArgs.fromBundle(intent.extras!!).dog
         setupRecyclerView(binding.root)
-        showBottomSheet(dog)
+    }
+
+    private fun setAdoptButtonAction(binding: ItemBottomSheetBinding, dog: Dog){
+        binding.adoptButton.setOnClickListener {
+            val builder = AlertDialog.Builder(binding.root.context)
+            builder.setTitle(binding.root.context.getString(R.string.adoption_confirmation_modal_title))
+            builder.setMessage(binding.root.context.getString(R.string.adoption_confirmation_modal_text))
+            builder.setPositiveButton(R.string.yes) { dialog, which ->
+                //remuevo el elemento
+                //envio el dog a la lista de adoptados calculo
+                detailsViewModel.adoptFromFavorites(dog.id)
+                favoritesViewModel.deleteFavorite(username, dog.id) //esto es así? se debería actualizar la lista de favoritos desde acá? chequear xd
+                // de details ir a adoptados con el perro ya en mano ah, queda pasar el perro para que esa actividad pueda mostrarlo?
+                Log.i("DetailsActivity", "Adopted dog: ${dog.name}")
+            }
+            builder.setNegativeButton(R.string.no) { dialog, which ->
+                Log.i("DetailsActivity", R.string.no.toString())
+            }
+            val dialog = builder.create()
+            dialog.show()
+        }
     }
 
     private fun showBottomSheet(dog: Dog) {
@@ -46,7 +74,7 @@ class DetailsActivity : AppCompatActivity() {
 
         val bottomSheetBinding = ItemBottomSheetBinding.bind(view)
         configureBottomSheetContent(bottomSheetBinding, dog)
-
+        setAdoptButtonAction(bottomSheetBinding, dog)
         setOwnersPhoneCallAction(bottomSheetBinding)
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)

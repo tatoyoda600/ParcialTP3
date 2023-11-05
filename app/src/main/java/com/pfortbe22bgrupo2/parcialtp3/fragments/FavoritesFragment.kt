@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.activities.DetailsActivity
 import com.pfortbe22bgrupo2.parcialtp3.adapters.FavoritesAdapter
+import com.pfortbe22bgrupo2.parcialtp3.data.DogsList
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentFavoritesBinding
 import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
@@ -25,6 +26,8 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     private lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var favoriteDogs: MutableList<Dog>
+    private var dogList: DogsList = DogsList()
+    private var username = "????"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +44,6 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     }
 
      private fun loadData() {
-         val username = "????"
          favoritesViewModel.loadFavoriteDogs(username)
          favoritesViewModel.favoriteDogs.observe(viewLifecycleOwner) { favoriteDogsList ->
              this.favoriteDogs = favoriteDogsList.toMutableList()
@@ -58,7 +60,7 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     private fun initRecyclerView() {
         binding.favoritesRecyclerView.setHasFixedSize(false)
         try {
-            favoritesAdapter = FavoritesAdapter(binding.root.context, favoriteDogs, this)
+            favoritesAdapter = FavoritesAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, username)
             linearLayoutManager = LinearLayoutManager(context)
             binding.favoritesRecyclerView.layoutManager = linearLayoutManager
             binding.favoritesRecyclerView.adapter = favoritesAdapter
@@ -68,8 +70,9 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     }
 
     override fun onItemClickAction(position: Int) {
-        val intent = Intent(activity, DetailsActivity::class.java)
+        val intent = Intent(activity, DetailsActivity(favoritesViewModel, username)::class.java)
         intent.putExtra("dog", favoriteDogs[position])
+        //intent.putExtra("dog", dogList.dogList[position])
         startActivity(intent)
     }
 

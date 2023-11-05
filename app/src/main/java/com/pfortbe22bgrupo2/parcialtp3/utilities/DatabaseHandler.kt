@@ -134,4 +134,10 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
             return false
         }
     }
+
+    fun deleteFavorite(username: String, dogId: Int) {
+        val favoriteToDelete = UserFavoritesEntity(username, dogId)
+        userFavoritesDao.deleteFavorite(favoriteToDelete)
+    }
+
 }

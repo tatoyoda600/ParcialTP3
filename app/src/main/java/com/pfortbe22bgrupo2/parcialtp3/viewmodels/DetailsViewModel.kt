@@ -29,4 +29,13 @@ class DetailsViewModel : ViewModel() {
     fun getSelectedDog(): LiveData<Dog> {
         return selectedDog
     }
+
+    fun adoptFromFavorites(id: Int) {
+        val dog = databaseHandler.getAdoptionById(id)
+        if (dog != null) {
+            viewModelScope.launch {
+                databaseHandler.insertAdoption(dog)
+            }
+        }
+    }
 }
