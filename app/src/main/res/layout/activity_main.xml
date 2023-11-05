@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/bottomBar"
                 android:layout_gravity="bottom"
-                android:backgroundTint="@color/white"
+                style="@style/Selected.Item"
                 app:fabCradleMargin="10dp"
                 app:fabCradleRoundedCornerRadius="50dp">
 
@@ -56,10 +56,10 @@
                     android:id="@+id/bottom_navigation"
                     app:labelVisibilityMode="labeled"
                     android:elevation="10dp"
-                    app:menu="@menu/bottom_nav"
-                    app:itemRippleColor="@color/black"
-                    app:itemIconTint="@color/icons_color"
+                    app:itemRippleColor="@color/ColorSelected"
                     app:itemTextColor="@color/icons_color"
+                    app:itemIconTint="@color/icons_color"
+                    app:menu="@menu/bottom_nav"
                     android:background="@android:color/transparent"/>
             </com.google.android.material.bottomappbar.BottomAppBar>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -70,9 +70,9 @@
         android:layout_height="match_parent"
         android:id="@+id/navigation_drawer"
         android:layout_gravity="start"
-        android:background="@color/white"
-        app:itemIconTint="@color/grey"
-        app:itemTextColor="@color/grey"
+        style="@style/Selected.Item"
+        app:itemIconTint="@color/drawerColors"
+        app:itemTextColor="@color/drawerColors"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"/>
 
