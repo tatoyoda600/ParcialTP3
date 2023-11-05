@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/bottom_sheet"
     android:padding="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -37,7 +38,7 @@
                 android:textColor="@color/main_atributes_text"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -50,7 +51,7 @@
 
                 <TextView
                     android:id="@+id/dog_location_text_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
                     android:gravity="center"
