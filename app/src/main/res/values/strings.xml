@@ -28,6 +28,8 @@
     <string name="publication_male_input">Macho</string>
     <string name="publication_female_input">Hembra</string>
     <string name="publication_weight_input">Peso (kg)</string>
+    <string name="publication_breed_input">Raza</string>
+    <string name="publication_subbreed_input">Subraza</string>
     <string name="publication_urls_input">URLs de imagenes</string>
     <string name="publication_text_input">Descripcion / Comentarios</string>
     <string name="publication_submit">Confirmar</string>
