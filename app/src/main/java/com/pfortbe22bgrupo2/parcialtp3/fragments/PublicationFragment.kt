@@ -1,5 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +9,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
+import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.activities.DetailsActivity
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.PublicationViewModel
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentPublicationBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
@@ -15,6 +20,7 @@ import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Float.parseFloat
 import java.lang.Integer.parseInt
 
@@ -37,8 +43,8 @@ class PublicationFragment : Fragment() {
                 val name = binding.dogNameInput.text.toString()
                 val location = binding.locationInput.text.toString()
                 val sex = if (binding.sexInput.checkedRadioButtonId == binding.femaleInput.id) Dog.FEMALE else Dog.MALE
-                //TODO("HOW DO YOU GET THE USERNAME???")
-                val username = "????"
+                val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+                val username = pref.getString("userName", "")?: ""
                 val text = binding.textInput.text.toString()
                 val urls = binding.urlsInput.text.toString().split("\n", ", ", ",", "; ", ";", " ").toMutableList()
                 urls.removeAll { str: String -> str.isBlank() }
@@ -63,11 +69,14 @@ class PublicationFragment : Fragment() {
                             // Put dog up for adoption successfully!
                             val dog = databaseHandler.getAdoptionById(id)
                             if (dog != null) {
-                                binding.root.findNavController()
-                                    .navigate(
-                                        PublicationFragmentDirections
-                                            .actionPublicationFragmentToDetailsActivity(dog)
-                                    );
+                                val intent = Intent(activity, DetailsActivity::class.java)
+                                intent.putExtra("dog", dog)
+                                withContext(Dispatchers.Main) {
+                                    val toast = Toast(context)
+                                    toast.setText(R.string.publish_adoption)
+                                    toast.show()
+                                }
+                                startActivity(intent)
                             }
                         }
                     }

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pfortbe22bgrupo2.parcialtp3.R
@@ -15,6 +16,10 @@ import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityDetailsBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailsBinding
@@ -80,6 +85,19 @@ class DetailsActivity : AppCompatActivity() {
         binding.adoptionDescriptionTextView.text = dog.text
         binding.dogWeightTextView.text = "${dog.weight}kg"
         binding.dogSexTextView.text = dog.sex
+
+        val databaseHandler = DatabaseHandler(binding.root.context)
+        CoroutineScope(Dispatchers.IO).launch {
+            val user = databaseHandler.getUserByUsername(dog.owner_username)
+            if (user != null) {
+                // Glide se tiene que llamar desde el main thread si o si
+                CoroutineScope(Dispatchers.Main).launch {
+                    Glide.with(binding.root.context)
+                        .load(user.image_url)
+                        .into(binding.profileUserPicImageView)
+                }
+            }
+        }
     }
 
     private fun setupRecyclerView(view: View) {

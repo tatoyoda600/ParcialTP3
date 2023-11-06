@@ -6,14 +6,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityLoginBinding
+import com.pfortbe22bgrupo2.parcialtp3.fillerdata.DogsList
+import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val databaseHandler = DatabaseHandler(binding.root.context)
+        CoroutineScope(Dispatchers.IO).launch {
+            if (databaseHandler.getAdoptionList().size < 1) {
+                DogsList().fillDatabase(binding.root.context)
+            }
+        }
+
         applySettings()
         verifyCurrentUser()
     }

@@ -11,7 +11,7 @@ import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 
 class AdoptionDogAdapter(
     //private val context: Context,
-    private val dogList: MutableList<Dog>,
+    private var dogList: MutableList<Dog>,
     private val showAdoptionDetails: ShowAdoptionDetailsListener,
     private val addToFavorite: AddToFavorite
 ): RecyclerView.Adapter<FavoritesItemHolder>() {
@@ -40,6 +40,11 @@ class AdoptionDogAdapter(
         holder.getSaveButtonItem().setOnClickListener{
             addToFavorite.addFavorite(position)
         }
+    }
+
+    fun updateData(favoriteDogs: MutableList<Dog>) {
+        dogList = favoriteDogs.toMutableList()
+        notifyDataSetChanged()
     }
 
 /*    private fun addToFavorite(position: Int) {
