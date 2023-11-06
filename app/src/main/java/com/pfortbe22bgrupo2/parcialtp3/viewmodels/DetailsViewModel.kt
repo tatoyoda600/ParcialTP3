@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,14 +38,13 @@ class DetailsViewModel @Inject constructor(
     }
 
     fun adoptFromFavorites(id: Int) {
-        /*val dog = databaseHandler.getAdoptionById(id)
+        val dog = databaseHandler.getAdoptionById(id)
         if (dog != null) {
-            viewModelScope.launch {
-                databaseHandler.insertAdoption(dog)
+            viewModelScope.launch(Dispatchers.IO){
+                databaseHandler.deleteFavorite(dog.owner_username, id)
+                //databaseHandler.adopt
             }
-            Log.i("DetailsViewModel", "Adopted dog: ${dog.name}")
-        }*/
-
+        }
         Log.i("DetailsViewModel", "Adopted dog: ${id}")
     }
 }

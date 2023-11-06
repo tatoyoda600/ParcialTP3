@@ -146,16 +146,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun openFragment(fragment: Fragment){
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(binding.navHost.id, fragment)
-        if (fragment is AdoptedFragment) {
-            // Marcar el elemento correspondiente al "Fragmento Adoptados" en la barra de navegación inferior
-            binding.bottomNavigation.menu.findItem(R.id.adoptedFragment2)?.isChecked = true
-        } else {
-            // Desmarcar todos los demás elementos en la barra de navegación inferior
-            for (i in 0 until binding.bottomNavigation.menu.size()) {
-                val menuItem = binding.bottomNavigation.menu.getItem(i)
-                menuItem.isChecked = false
-            }
-        }
         fragmentTransaction.commit()
     }
 

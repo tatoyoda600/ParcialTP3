@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.runtime.simulateHotReload
 import androidx.recyclerview.widget.RecyclerView
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemDogBinding
@@ -53,10 +54,7 @@ class RecyclerAdapter(private val context: Context, private var dogList: Mutable
         builder.setMessage(context.getString(R.string.remove_from_favs_modal_text))
         builder.setPositiveButton(R.string.yes) { dialog, which ->
             val dog = dogList[position]
-            favoritesViewModel?.deleteFavorite(username, dog.id) //esto es algo que debería hacer el adapter?? consultar
-            dogList.removeAt(position) //es necesario? probar
-            notifyItemRemoved(position)
-
+            favoritesViewModel?.deleteFavorite(username, dog.id)
             if (position == 0 && dogList.isNotEmpty()) {
                 notifyItemChanged(0)
             } else if (position < dogList.size) {
