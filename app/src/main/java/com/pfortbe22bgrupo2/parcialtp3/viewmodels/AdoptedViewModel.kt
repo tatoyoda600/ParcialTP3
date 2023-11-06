@@ -15,6 +15,7 @@ class AdoptedViewModel @Inject constructor(
 ) : ViewModel() {
     val totalAdoptionsNumber = MutableLiveData<Int>()
     val adoptedDogs = MutableLiveData<List<Dog>>()
+
     fun loadAdoptedListTotal()  {
         viewModelScope.launch(Dispatchers.IO) {
             val totalAdoptions = databaseHandler.getAdoptionList().size

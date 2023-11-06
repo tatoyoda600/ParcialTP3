@@ -43,7 +43,8 @@
     <string name="error_message_removing_position_from_favorites">Error while removing item from favorites</string>
     <string name="register">Registrarse</string>
     <string name="delete_acount">Eliminar Cuenta</string>
-    <string name="no_elements_found">No se han encontrado elementos en la lista de favoritos</string>
+    <string name="no_elements_found_in_favorites">No se han encontrado elementos en la lista de favoritos</string>
+    <string name="no_elements_found_in_adopted">No se han encontrado elementos en la lista de adoptados</string>
     <string name="error_initialization_recycler_view_failed">Error al inicializar el adaptador del RecyclerView: %1$s</string>
     <string name="adoption_confirmation_modal_title">Adoptar</string>
     <string name="adoption_confirmation_modal_text">¿Estás seguro de que desea adoptar?</string>

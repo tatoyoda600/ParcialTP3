@@ -1,5 +1,6 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -23,14 +24,16 @@ class AdoptedFragment : Fragment() {
     private lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adoptedDogs: MutableList<Dog>
-    private var dogList: DogsList = DogsList()
-    private var username = "????"
+    private lateinit var username : String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAdoptedBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(AdoptedViewModel::class.java)
+        val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+        username = pref.getString("userName","").toString()
         return binding.root
     }
 
@@ -42,7 +45,7 @@ class AdoptedFragment : Fragment() {
     private fun initRecyclerView() {
         binding.adoptedRecyclerView.setHasFixedSize(false)
         try {
-            favoritesAdapter = FavoritesAdapter(binding.root.context, dogList.dogList, null, null, username, false)
+            favoritesAdapter = FavoritesAdapter(binding.root.context, adoptedDogs, null, null, username, false)
             linearLayoutManager = LinearLayoutManager(context)
             binding.adoptedRecyclerView.layoutManager = linearLayoutManager
             binding.adoptedRecyclerView.adapter = favoritesAdapter
@@ -55,8 +58,9 @@ class AdoptedFragment : Fragment() {
         viewModel.loadAdoptedDogs()
         viewModel.adoptedDogs.observe(viewLifecycleOwner) { adoptedDogsList ->
             this.adoptedDogs = adoptedDogsList.toMutableList()
+            Log.i("FavoritesFragment", "Getting favorites dog fot user: $username")
             if(adoptedDogs.isEmpty()) {
-                binding.noElementsTextView.text = getString(R.string.no_elements_found)
+                binding.noElementsTextView.text = getString(R.string.no_elements_found_in_adopted)
             } else {
                 binding.noElementsTextView.visibility = View.GONE
                 initRecyclerView()

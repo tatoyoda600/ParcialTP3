@@ -29,18 +29,18 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
 
     override fun onBindViewHolder(holder: FavoritesItemHolder, position: Int) {
         if(showAllFields){
-        holder.setName(dogList[position].name!!)
-        holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
-        holder.setDogAge(dogList[position].age.toString())
-        //holder.setDogBreed("dsada")
-        //holder.setDogSubBreed("dasdsa")
-        holder.setDogSex(dogList[position].sex.toString())
-        holder.getCardLayout().setOnClickListener() {
-            showAdoptionDetails?.onItemClickAction(position)
-        }
-        holder.getSaveButtonItem().setOnClickListener{
-            setOnRemoveItemAction(position)
-        }
+            holder.setName(dogList[position].name!!)
+            holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
+            holder.setDogAge(dogList[position].age.toString())
+            holder.setDogBreed("dsada")
+            holder.setDogSubBreed("dasdsa")
+            holder.setDogSex(dogList[position].sex.toString())
+            holder.getCardLayout().setOnClickListener() {
+                showAdoptionDetails?.onItemClickAction(position)
+            }
+            holder.getSaveButtonItem().setOnClickListener{
+                setOnRemoveItemAction(position)
+            }
         } else {
             holder.setName(dogList[position].name!!)
             holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
