@@ -13,6 +13,8 @@ class DogEntity(
     sex: String,
     weight: Float,
     owner_username: String,
+    breed: String,
+    subbreed: String?,
     text: String
 ) {
     @PrimaryKey(autoGenerate = true)
@@ -36,6 +38,12 @@ class DogEntity(
     @ColumnInfo(name = "owner_username")
     val owner_username: String
 
+    @ColumnInfo(name = "breed")
+    val breed: String
+
+    @ColumnInfo(name = "breed")
+    val subbreed: String?
+
     @ColumnInfo(name = "text")
     val text: String
 
@@ -47,6 +55,8 @@ class DogEntity(
         this.sex = sex
         this.weight = weight
         this.owner_username = owner_username
+        this.breed = breed
+        this.subbreed = subbreed
         this.text = text
     }
 
@@ -57,6 +67,8 @@ class DogEntity(
         sex: String,
         weight: Float,
         owner_username: String,
+        breed: String,
+        subbreed: String?,
         text: String
-    ): this(0, name, age, location, sex, weight, owner_username, text)
+    ): this(0, name, age, location, sex, weight, owner_username, breed, subbreed, text)
 }

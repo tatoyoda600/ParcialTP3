@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 class DetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailsBinding
     private lateinit var dog: Dog
+    var phoneNumber: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +66,6 @@ class DetailsActivity : AppCompatActivity() {
     private fun setOwnersPhoneCallAction(binding: ItemBottomSheetBinding){
         val phoneBtn = binding.phonePicImageView
         phoneBtn.setOnClickListener {
-            val phoneNumber = dog.phone
             if (!phoneNumber.isNullOrEmpty()) {
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:$phoneNumber")
@@ -80,7 +80,6 @@ class DetailsActivity : AppCompatActivity() {
     private fun configureBottomSheetContent(binding: ItemBottomSheetBinding, dog: Dog) {
         binding.dogNameTextView.text = dog.name
         binding.dogAgeTextView.text = getString(R.string.years, dog.age.toString())
-        binding.dogOwnerNameTextView.text = dog.owner
         binding.dogLocationTextView.text = dog.location
         binding.adoptionDescriptionTextView.text = dog.text
         binding.dogWeightTextView.text = "${dog.weight}kg"
@@ -91,6 +90,8 @@ class DetailsActivity : AppCompatActivity() {
             val user = databaseHandler.getUserByUsername(dog.owner_username)
             if (user != null) {
                 // Glide se tiene que llamar desde el main thread si o si
+                phoneNumber = user.phone
+                binding.dogOwnerNameTextView.text = user.name
                 CoroutineScope(Dispatchers.Main).launch {
                     Glide.with(binding.root.context)
                         .load(user.image_url)

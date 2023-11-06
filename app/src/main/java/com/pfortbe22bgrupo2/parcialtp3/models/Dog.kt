@@ -15,8 +15,8 @@ data class Dog(
     val sex: String,
     val weight: Float,
     val owner_username: String,
-    val owner: String,
-    val phone: String,
+    val breed: String,
+    val subbreed: String?,
     val text: String,
     val image_urls: Array<String>?
 ): Parcelable {
@@ -27,11 +27,11 @@ data class Dog(
         sex: String,
         weight: Float,
         owner_username: String,
-        owner: String,
-        phone: String,
+        breed: String,
+        subbreed: String? = null,
         text: String,
         image_urls: Array<String>?
-    ): this(0, name, age, location, sex, weight, owner_username, owner, phone, text, image_urls)
+    ): this(0, name, age, location, sex, weight, owner_username, breed, subbreed, text, image_urls)
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -42,7 +42,7 @@ data class Dog(
         parcel.readFloat(),
         parcel.readString().toString(),
         parcel.readString().toString(),
-        parcel.readString().toString(),
+        parcel.readString(),
         parcel.readString().toString(),
         parcel.createStringArray()
     )
@@ -55,8 +55,8 @@ data class Dog(
         parcel.writeString(sex)
         parcel.writeFloat(weight)
         parcel.writeString(owner_username)
-        parcel.writeString(owner)
-        parcel.writeString(phone)
+        parcel.writeString(breed)
+        parcel.writeString(subbreed)
         parcel.writeString(text)
         parcel.writeStringArray(image_urls)
     }
@@ -65,14 +65,14 @@ data class Dog(
         return 0
     }
 
-    fun toEntity(): DogEntity? {
+    fun toEntity(): DogEntity {
         var output: DogEntity? = null
 
         if (id != 0) {
-            output = DogEntity(id, name, age, location, sex, weight, owner_username, text)
+            output = DogEntity(id, name, age, location, sex, weight, owner_username, breed, subbreed, text)
         }
         else {
-            output = DogEntity(name, age, location, sex, weight, owner_username, text)
+            output = DogEntity(name, age, location, sex, weight, owner_username, breed, subbreed, text)
         }
 
         return output
@@ -105,8 +105,8 @@ data class Dog(
                 dogEntity.sex,
                 dogEntity.weight,
                 dogEntity.owner_username,
-                userEntity?.name.toString(),
-                userEntity?.phone.toString(),
+                dogEntity.breed,
+                dogEntity.subbreed,
                 dogEntity.text,
                 imageUrls.toTypedArray()
             )
