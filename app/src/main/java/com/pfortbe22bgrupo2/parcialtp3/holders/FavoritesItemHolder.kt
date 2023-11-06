@@ -10,12 +10,19 @@ import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemDogBinding
 class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(binding.root) {
 
     private var binding: ItemDogBinding
+    //private var favoriteIcon: Unit
 
 
     init {
         this.binding = binding
-        binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
 
+        //binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
+        //favoriteIcon = binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_unfilled)
+
+    }
+
+    fun changeFavIcon(){
+            binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
     }
 
     fun setName(name:String) {
@@ -49,5 +56,13 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
     fun getSaveButtonItem(): ImageView {
         return binding.favIconImageView
     }
+
+    fun setFavIcon(favorite: Boolean) {
+        if (favorite){
+            binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
+        }
+
+    }
+
 
 }

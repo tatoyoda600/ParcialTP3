@@ -8,6 +8,7 @@ import com.pfortbe22bgrupo2.parcialtp3.database.DogDao
 import com.pfortbe22bgrupo2.parcialtp3.database.DogImagesDao
 import com.pfortbe22bgrupo2.parcialtp3.database.UserDao
 import com.pfortbe22bgrupo2.parcialtp3.database.UserFavoritesDao
+import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogImageEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserFavoritesEntity
@@ -137,6 +138,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
     fun insertFavorite(username: String, dogId: Int): Boolean {
         try {
             userFavoritesDao.insertFavorite(UserFavoritesEntity(username, dogId))
+            dogDao.updateFavoriteStatus(dogId, true)
             return true
         }
         catch (error: Exception) {
@@ -188,4 +190,5 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         }
         return false
     }
+
 }

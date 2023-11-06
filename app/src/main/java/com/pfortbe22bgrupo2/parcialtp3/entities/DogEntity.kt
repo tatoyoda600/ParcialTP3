@@ -15,8 +15,10 @@ class DogEntity(
     owner_username: String,
     breed: String,
     subbreed: String?,
-    text: String
+    text: String,
+    isFavorite: Boolean
 ) {
+
     @PrimaryKey(autoGenerate = true)
     val id: Int
 
@@ -47,6 +49,9 @@ class DogEntity(
     @ColumnInfo(name = "text")
     val text: String
 
+    @ColumnInfo(name = "is_favorite")
+    var isFavorite: Boolean
+
     init {
         this.id = id
         this.name = name
@@ -58,6 +63,7 @@ class DogEntity(
         this.breed = breed
         this.subbreed = subbreed
         this.text = text
+        this.isFavorite = isFavorite
     }
 
     constructor(
@@ -69,6 +75,8 @@ class DogEntity(
         owner_username: String,
         breed: String,
         subbreed: String?,
-        text: String
-    ): this(0, name, age, location, sex, weight, owner_username, breed, subbreed, text)
+        text: String,
+        isFavorite: Boolean
+    ): this(0, name, age, location, sex, weight, owner_username, breed, subbreed, text, isFavorite)
+
 }
