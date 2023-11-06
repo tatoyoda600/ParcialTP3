@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import javax.inject.Inject
 
@@ -21,4 +22,8 @@ interface DogDao  {
 
     @Delete
     fun deleteAdoption(dog: DogEntity)
+
+    @Query("UPDATE adoption_list SET is_favorite = :isFavorite WHERE id = :id")
+    fun updateFavoriteStatus(id: Int, isFavorite: Boolean)
+
 }

@@ -1,7 +1,9 @@
 package com.pfortbe22bgrupo2.parcialtp3.models
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,8 @@ data class Dog(
     val owner: String,
     val phone: String,
     val text: String,
-    val image_urls: Array<String>?
+    val image_urls: Array<String>?,
+    var isFavorite: Boolean
 ): Parcelable {
     constructor(
         name: String,
@@ -30,8 +33,10 @@ data class Dog(
         owner: String,
         phone: String,
         text: String,
-        image_urls: Array<String>?
-    ): this(0, name, age, location, sex, weight, owner_username, owner, phone, text, image_urls)
+        image_urls: Array<String>?,
+        isFavorite: Boolean
+    ): this(0, name, age, location, sex, weight, owner_username, owner, phone, text, image_urls,isFavorite)
+
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -44,8 +49,11 @@ data class Dog(
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
-        parcel.createStringArray()
+        parcel.createStringArray(),
+        parcel.toString().toBoolean()
+
     )
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -59,6 +67,8 @@ data class Dog(
         parcel.writeString(phone)
         parcel.writeString(text)
         parcel.writeStringArray(image_urls)
+        parcel.toString()
+        //parcel.writeBoolean(isFavorite)
     }
 
     override fun describeContents(): Int {
@@ -69,10 +79,10 @@ data class Dog(
         var output: DogEntity? = null
 
         if (id != 0) {
-            output = DogEntity(id, name, age, location, sex, weight, owner_username, text)
+            output = DogEntity(id, name, age, location, sex, weight, owner_username, text, isFavorite)
         }
         else {
-            output = DogEntity(name, age, location, sex, weight, owner_username, text)
+            output = DogEntity(name, age, location, sex, weight, owner_username, text, isFavorite)
         }
 
         return output
@@ -84,6 +94,7 @@ data class Dog(
 
         @JvmField
         val CREATOR: Parcelable.Creator<Dog> = object : Parcelable.Creator<Dog> {
+            @RequiresApi(Build.VERSION_CODES.Q)
             override fun createFromParcel(parcel: Parcel): Dog {
                 return Dog(parcel)
             }
@@ -108,7 +119,8 @@ data class Dog(
                 userEntity?.name.toString(),
                 userEntity?.phone.toString(),
                 dogEntity.text,
-                imageUrls.toTypedArray()
+                imageUrls.toTypedArray(),
+                dogEntity.isFavorite
             )
         }
     }

@@ -62,7 +62,8 @@ class PublicationFragment : Fragment() {
                             owner = user.name,
                             phone = user.phone,
                             text = text,
-                            image_urls = urls.toTypedArray()
+                            image_urls = urls.toTypedArray(),
+                            isFavorite = false
                         ));
 
                         if (id != -1) {
