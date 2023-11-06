@@ -2,6 +2,7 @@ package com.pfortbe22bgrupo2.parcialtp3.utilities
 
 import android.content.Context
 import android.util.Log
+import com.pfortbe22bgrupo2.parcialtp3.database.AdoptedDogDao
 import com.pfortbe22bgrupo2.parcialtp3.database.AppDatabase
 import com.pfortbe22bgrupo2.parcialtp3.database.DogDao
 import com.pfortbe22bgrupo2.parcialtp3.database.DogImagesDao
@@ -21,6 +22,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
     val dogImagesDao: DogImagesDao
     val userDao: UserDao
     val userFavoritesDao: UserFavoritesDao
+    val adoptedDogDao: AdoptedDogDao
 
     companion object {
 
@@ -32,6 +34,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         dogImagesDao = database.dogImagesDao()
         userDao = database.userDao()
         userFavoritesDao = database.userFavoritesDao()
+        adoptedDogDao = database.adoptedDogDao()
     }
 
     fun getAdoptionList(): List<Dog> {
@@ -146,5 +149,43 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         if (favorite != null) {
             userFavoritesDao.deleteFavorite(favorite)
         }
+    }
+
+    fun getAdoptedDogListByUser(username: String): List<Dog> {
+        val output: MutableList<Dog> = mutableListOf()
+        val entities = adoptedDogDao.getAdoptedDogListByUser(username)
+
+        for (dog in entities) {
+            output.add(Dog.createFromEntity(dog, this))
+        }
+
+        return output
+    }
+
+    fun getUserAdoptedDogById(username: String, id: Int): Dog? {
+        val output: Dog? = null
+        val entity = adoptedDogDao.getUserAdoptedDogById(username, id)
+
+        if (entity != null) {
+            Dog.createFromEntity(entity, this)
+        }
+
+        return output
+    }
+
+    fun adoptDog(username: String, dogId: Int): Boolean {
+        val entity = dogDao.getAdoptionById(dogId)
+        if (entity != null) {
+            try {
+                dogDao.deleteAdoption(entity)
+                val adoptedEntity = Dog.createFromEntity(entity, this).toAdoptedEntity(username)
+                adoptedDogDao.insertAdoptedDog(adoptedEntity)
+                return true
+            }
+            catch (error: Exception) {
+                return false
+            }
+        }
+        return false
     }
 }
