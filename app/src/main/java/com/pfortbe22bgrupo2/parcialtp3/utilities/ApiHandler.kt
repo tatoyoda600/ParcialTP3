@@ -1,6 +1,8 @@
 package com.pfortbe22bgrupo2.parcialtp3.utilities
 
 import android.util.ArrayMap
+import android.util.Log
+import com.pfortbe22bgrupo2.parcialtp3.models.Breeds
 import com.pfortbe22bgrupo2.parcialtp3.models.BreedsResponse
 import com.pfortbe22bgrupo2.parcialtp3.models.ImagesResponse
 import com.pfortbe22bgrupo2.parcialtp3.services.ApiInterface
@@ -27,22 +29,21 @@ class ApiHandler {
             .create(ApiInterface::class.java)
     }
 
-    fun getBreeds(callback: (BreedsResponse) -> Unit) {
+    fun getBreeds(callback: (Breeds) -> Unit) {
         var data = retrofit.getBreeds()
         data.enqueue(object : Callback<BreedsResponse> {
             override fun onResponse(call: Call<BreedsResponse>, response: Response<BreedsResponse>) {
                 val body = response.body()
                 if (body != null) {
-                    callback(body)
+                    callback(body.toBreeds())
                 }
                 else {
-                    callback(BreedsResponse(ArrayMap(), FAIL_MSG))
+                    callback(Breeds(ArrayMap(), FAIL_MSG))
                 }
-                val res: BreedsResponse = response.body()!!
-                callback(res)
             }
 
             override fun onFailure(call: Call<BreedsResponse>, t: Throwable) {
+                Log.e("API", t.message.toString())
                 TODO("Not yet implemented")
             }
         })

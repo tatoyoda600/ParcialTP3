@@ -9,24 +9,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.google.android.material.textfield.TextInputLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.PublicationViewModel
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentPublicationBinding
+import com.pfortbe22bgrupo2.parcialtp3.models.Breeds
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import com.pfortbe22bgrupo2.parcialtp3.utilities.ApiHandler
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Float.parseFloat
-import java.lang.Integer.parseInt
 
 class PublicationFragment : Fragment() {
     private lateinit var viewModel: PublicationViewModel
     lateinit var binding : FragmentPublicationBinding
+    var breeds: Breeds? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,6 +98,7 @@ class PublicationFragment : Fragment() {
 
         return binding.root
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
