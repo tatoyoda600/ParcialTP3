@@ -37,7 +37,7 @@ class AdoptionDogAdapter(
         holder.getCardLayout().setOnClickListener() {
             showAdoptionDetails.onItemClickAction(position)
         }
-        holder.getSaveButtonItem().setOnClickListener{
+        holder.getFavIconImageView().setOnClickListener{
             addToFavorite.addFavorite(position)
         }
     }

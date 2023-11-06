@@ -103,12 +103,9 @@ class DetailsFragment : Fragment() {
                 builder.setTitle(binding.root.context.getString(R.string.adoption_confirmation_modal_title))
                 builder.setMessage(binding.root.context.getString(R.string.adoption_confirmation_modal_text))
                 builder.setPositiveButton(R.string.yes) { dialog, which ->
-                    Log.i("DetailsActivity", "Starting adoption process for dog: ${dog.name}")
-                    //remuevo el elemento
-                    //envio el dog a la lista de adoptados calculo
-                   // viewModel.adoptFromFavorites(dog.id)
-                    // favoritesViewModel.deleteFavorite(username, dog.id) //esto es así? se debería actualizar la lista de favoritos desde acá? chequear xd
+                    Log.i("DetailsFragment", "Starting adoption process for dog: ${dog.name}")
                     hideBottomSheet()
+                    viewModel.adoptFromFavorites(dog.id)
                     goToAdoptedFragment()
                 }
                 builder.setNegativeButton(R.string.no) { dialog, which ->

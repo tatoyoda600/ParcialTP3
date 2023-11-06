@@ -1,6 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,21 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfortbe22bgrupo2.parcialtp3.R
-import com.pfortbe22bgrupo2.parcialtp3.adapters.FavoritesAdapter
+import com.pfortbe22bgrupo2.parcialtp3.adapters.RecyclerAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentFavoritesBinding
 import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     private lateinit var favoritesViewModel: FavoritesViewModel
     private lateinit var binding: FragmentFavoritesBinding
-    private lateinit var favoritesAdapter: FavoritesAdapter
+    private lateinit var recyclerAdapter: RecyclerAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var favoriteDogs: MutableList<Dog>
     private lateinit var userName : String
@@ -46,7 +44,7 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
      private fun loadData() {
          val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
          userName = pref.getString("userName","").toString()
-         favoritesViewModel.loadFavoriteDogs(userName)
+
          favoritesViewModel.loadFavoriteDogs(userName)
          favoritesViewModel.favoriteDogs.observe(viewLifecycleOwner) { favoriteDogsList ->
              this.favoriteDogs = favoriteDogsList.toMutableList()
@@ -56,7 +54,7 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
              } else {
                  binding.noElementsTextView.visibility = View.GONE
                  initRecyclerView()
-                 favoritesAdapter.updateData(this.favoriteDogs)
+                 recyclerAdapter.updateData(this.favoriteDogs)
              }
          }
     }
@@ -64,10 +62,10 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
    private fun initRecyclerView() {
         binding.favoritesRecyclerView.setHasFixedSize(false)
         try {
-            favoritesAdapter = FavoritesAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, userName, true)
+            recyclerAdapter = RecyclerAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, userName, true)
             linearLayoutManager = LinearLayoutManager(context)
             binding.favoritesRecyclerView.layoutManager = linearLayoutManager
-            binding.favoritesRecyclerView.adapter = favoritesAdapter
+            binding.favoritesRecyclerView.adapter = recyclerAdapter
         } catch (e: Exception) {
             Log.e("FavoritesFragment", getString(R.string.error_initialization_recycler_view_failed, e.message))
         }

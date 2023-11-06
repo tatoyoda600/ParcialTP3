@@ -45,7 +45,7 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
         return binding.cardItemContainer
     }
 
-    fun getSaveButtonItem(): ImageView {
+    fun getFavIconImageView(): ImageView {
         return binding.favIconImageView
     }
 

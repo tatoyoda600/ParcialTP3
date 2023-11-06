@@ -37,12 +37,14 @@ class DetailsViewModel @Inject constructor(
     }
 
     fun adoptFromFavorites(id: Int) {
-        val dog = databaseHandler.getAdoptionById(id)
+        /*val dog = databaseHandler.getAdoptionById(id)
         if (dog != null) {
             viewModelScope.launch {
                 databaseHandler.insertAdoption(dog)
             }
             Log.i("DetailsViewModel", "Adopted dog: ${dog.name}")
-        }
+        }*/
+
+        Log.i("DetailsViewModel", "Adopted dog: ${id}")
     }
 }

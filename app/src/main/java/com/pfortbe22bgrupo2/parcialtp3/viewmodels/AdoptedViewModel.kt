@@ -1,5 +1,6 @@
 package com.pfortbe22bgrupo2.parcialtp3.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,8 +28,12 @@ class AdoptedViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val list =  databaseHandler.getAdoptionList()
             val dogList = mutableListOf<Dog>()
-            for (dog in list) {
-                dogList.add(dog)
+            if(list.isNotEmpty()){
+                for (dog in list) {
+                    dogList.add(dog)
+                }
+            } else {
+               Log.i("AdoptedViewModel", "No adopted dogs found")
             }
             adoptedDogs.postValue(dogList)
         }

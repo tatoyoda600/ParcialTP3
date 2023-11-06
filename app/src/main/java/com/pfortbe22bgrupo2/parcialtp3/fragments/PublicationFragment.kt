@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.pfortbe22bgrupo2.parcialtp3.R
-import com.pfortbe22bgrupo2.parcialtp3.activities.DetailsActivity
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.PublicationViewModel
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentPublicationBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
@@ -72,19 +71,12 @@ class PublicationFragment : Fragment() {
                                 binding.root.findNavController()
                                     .navigate(
                                         PublicationFragmentDirections
-                                            .actionPublicationFragmentToDetailsFragment(dog).apply {
-                                                dog?.let {
-                                                    val args = Bundle()
-                                                    args.putParcelable("dog", it)
-                                                    setArguments(args)
-                                                }
-                                            }
-                                    )
-                                withContext(Dispatchers.Main) {
-                                    val toast = Toast(context)
-                                    toast.setText(R.string.publish_adoption)
-                                    toast.show()
-                                }
+                                            .actionPublicationFragmentToDetailsFragment(dog))
+                            }
+                            withContext(Dispatchers.Main) {
+                                val toast = Toast(context)
+                                toast.setText(R.string.publish_adoption)
+                                toast.show()
                             }
                         }
                     }
