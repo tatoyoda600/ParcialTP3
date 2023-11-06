@@ -21,4 +21,13 @@ class HomeViewModel @Inject constructor(
             dogList.postValue(databaseHandler.getAdoptionList())
         }
     }
+
+    fun addDogToFavorites(userName: String, dogId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseHandler.insertFavorite(userName,dogId)
+        }
+
+    }
+
+
 }
