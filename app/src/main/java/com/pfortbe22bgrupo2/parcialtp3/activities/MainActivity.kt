@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             true
         }
 
-
         //Sacamos el indicador default de item seleccionado
         binding.bottomNavigation.itemActiveIndicatorColor = null
 
@@ -125,11 +124,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
 
-        binding.bottomNavigation.menu.setGroupCheckable(0, true, false)
-        for (i in 0 until binding.bottomNavigation.menu.size()) {
-            binding.bottomNavigation.menu.getItem(i).isChecked = false
-        }
-        binding.bottomNavigation.menu.setGroupCheckable(0, true, true)
+        deselectBottomMenuItems()
 
         return true
     }
@@ -160,4 +155,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    fun deselectBottomMenuItems() {
+        binding.bottomNavigation.menu.setGroupCheckable(0, true, false)
+        for (i in 0 until binding.bottomNavigation.menu.size()) {
+            binding.bottomNavigation.menu.getItem(i).isChecked = false
+        }
+        binding.bottomNavigation.menu.setGroupCheckable(0, true, true)
+    }
+
+    fun selectBottomMenuItem(id: Int) {
+        deselectBottomMenuItems()
+        binding.bottomNavigation.menu.getItem(id).isChecked = true
+    }
 }

@@ -20,13 +20,11 @@ class FavoritesViewModel @Inject constructor(
     fun loadFavoriteDogs(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val idList = databaseHandler.getFavoriteIDsByUsername(username)
-            Log.e("Fav", "HERE")
             val dogList = mutableListOf<Dog>()
             for (id in idList) {
                 val dog = databaseHandler.getAdoptionById(id)
                 dog?.let { dogList.add(dog) }
             }
-            Log.e("Fav", "HERE2")
             favoriteDogs.postValue(dogList)
         }
     }

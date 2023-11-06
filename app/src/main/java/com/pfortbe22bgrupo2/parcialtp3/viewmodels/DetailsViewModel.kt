@@ -1,5 +1,6 @@
 package com.pfortbe22bgrupo2.parcialtp3.viewmodels
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,10 +38,9 @@ class DetailsViewModel @Inject constructor(
         return selectedDog
     }
 
-    fun adoptFromFavorites(dog: Dog) {
-            viewModelScope.launch(Dispatchers.IO){
-                databaseHandler.adoptDog(dog.owner_username, dog.id)
-                databaseHandler.deleteFavorite(dog.owner_username, dog.id)
+    fun adoptFromFavorites(username: String, dog: Dog) {
+        viewModelScope.launch(Dispatchers.IO){
+            databaseHandler.adoptDog(username, dog.id)
             Log.i("DetailsViewModel", "Adopted dog: ${dog.id}")
         }
     }

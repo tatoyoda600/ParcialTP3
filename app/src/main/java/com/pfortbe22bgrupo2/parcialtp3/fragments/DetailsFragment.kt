@@ -1,6 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.activities.ImageViewActivity
+import com.pfortbe22bgrupo2.parcialtp3.activities.MainActivity
 import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentDetailsBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
@@ -45,6 +47,7 @@ class DetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
         dog = DetailsFragmentArgs.fromBundle(requireArguments()).dog
         showBottomSheet(dog)
+        (activity as MainActivity).deselectBottomMenuItems()
         return binding.root
     }
 
@@ -110,7 +113,9 @@ class DetailsFragment : Fragment() {
             builder.setPositiveButton(R.string.yes) { dialog, which ->
                 Log.i("DetailsFragment", "Starting adoption process for dog: ${dog.name}")
                 hideBottomSheet()
-                viewModel.adoptFromFavorites(dog)
+                val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+                val username = pref.getString("userName", "")?: ""
+                viewModel.adoptFromFavorites(username, dog)
                 goToAdoptedFragment()
             }
             builder.setNegativeButton(R.string.no) { dialog, which ->
@@ -161,6 +166,7 @@ class DetailsFragment : Fragment() {
 
     private fun goToAdoptedFragment() {
         val fragment = AdoptedFragment()
+        (activity as MainActivity).selectBottomMenuItem(2)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host, fragment)
             .commit()

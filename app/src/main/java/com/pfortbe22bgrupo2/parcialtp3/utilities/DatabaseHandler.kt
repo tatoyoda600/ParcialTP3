@@ -181,6 +181,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
                 dogDao.deleteAdoption(entity)
                 val adoptedEntity = Dog.createFromEntity(entity, this).toAdoptedEntity(username)
                 adoptedDogDao.insertAdoptedDog(adoptedEntity)
+                deleteFavorite(username, dogId)
                 return true
             }
             catch (error: Exception) {
