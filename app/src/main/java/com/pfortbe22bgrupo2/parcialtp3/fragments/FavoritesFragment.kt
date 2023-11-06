@@ -40,7 +40,8 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadData()
+        //loadData()
+        initRecyclerViewMock()
     }
 
      private fun loadData() {
@@ -51,13 +52,13 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
                  binding.noElementsTextView.text = getString(R.string.no_elements_found)
              } else {
                  binding.noElementsTextView.visibility = View.GONE
-                 initRecyclerView()
+                 //initRecyclerView()
                  favoritesAdapter.updateData(this.favoriteDogs)
              }
          }
     }
 
-    private fun initRecyclerView() {
+   /* private fun initRecyclerView() {
         binding.favoritesRecyclerView.setHasFixedSize(false)
         try {
             favoritesAdapter = FavoritesAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, username)
@@ -67,13 +68,34 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
         } catch (e: Exception) {
             Log.e("FavoritesFragment", getString(R.string.error_initialization_recycler_view_failed, e.message))
         }
+    }*/
+
+    private fun initRecyclerViewMock() {
+        binding.favoritesRecyclerView.setHasFixedSize(false)
+        try {
+            favoritesAdapter = FavoritesAdapter(binding.root.context, dogList.dogList, this)
+            linearLayoutManager = LinearLayoutManager(context)
+            binding.favoritesRecyclerView.layoutManager = linearLayoutManager
+            binding.favoritesRecyclerView.adapter = favoritesAdapter
+        } catch (e: Exception) {
+            Log.e("FavoritesFragment", getString(R.string.error_initialization_recycler_view_failed, e.message))
+        }
     }
 
     override fun onItemClickAction(position: Int) {
+        val intent = Intent(activity, DetailsActivity::class.java)
+        //intent.putExtra("dog", favoriteDogs[position])
+        intent.putExtra("dog", dogList.dogList[position])
+        startActivity(intent)
+    }
+
+    /*
+    *  override fun onItemClickAction(position: Int) {
         val intent = Intent(activity, DetailsActivity(favoritesViewModel, username)::class.java)
         intent.putExtra("dog", favoriteDogs[position])
         //intent.putExtra("dog", dogList.dogList[position])
         startActivity(intent)
     }
+    * */
 
 }

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pfortbe22bgrupo2.parcialtp3.R
@@ -25,19 +26,21 @@ import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
 import javax.inject.Inject
 
-class DetailsActivity @Inject constructor(private val favoritesViewModel: FavoritesViewModel, private val username: String) : AppCompatActivity() {
+//class DetailsActivity @Inject constructor(private val favoritesViewModel: FavoritesViewModel, private val username: String) : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityDetailsBinding
     private lateinit var dog: Dog
-    private lateinit var detailsViewModel: DetailsViewModel
-
+    //private lateinit var detailsViewModel: DetailsViewModel
+    private lateinit var fragmentManager: FragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
-        detailsViewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
+        //detailsViewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
         setContentView(binding.root)
-        val dog = DetailsActivityArgs.fromBundle(intent.extras!!).dog
+        dog = DetailsActivityArgs.fromBundle(intent.extras!!).dog
         showBottomSheet(dog)
+        fragmentManager = supportFragmentManager
     }
 
     override fun onStart() {
@@ -53,8 +56,8 @@ class DetailsActivity @Inject constructor(private val favoritesViewModel: Favori
             builder.setPositiveButton(R.string.yes) { dialog, which ->
                 //remuevo el elemento
                 //envio el dog a la lista de adoptados calculo
-                detailsViewModel.adoptFromFavorites(dog.id)
-                favoritesViewModel.deleteFavorite(username, dog.id) //esto es así? se debería actualizar la lista de favoritos desde acá? chequear xd
+                //detailsViewModel.adoptFromFavorites(dog.id)
+               // favoritesViewModel.deleteFavorite(username, dog.id) //esto es así? se debería actualizar la lista de favoritos desde acá? chequear xd
                 Log.i("DetailsActivity", "Adopted dog: ${dog.name}")
                 goToAdoptedFragment()
             }
@@ -137,11 +140,9 @@ class DetailsActivity @Inject constructor(private val favoritesViewModel: Favori
         recyclerView.setHasFixedSize(false)
     }
 
-        private fun goToAdoptedFragment() {
-            val fm: FragmentManager = supportFragmentManager
-            val ft: FragmentTransaction = fm.beginTransaction()
-            ft.add(R.id.nav_host, AdoptedFragment());
-            ft.commit()
-        }
-
+    private fun goToAdoptedFragment() {
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, AdoptedFragment())
+        fragmentTransaction.commit()
+    }
 }
