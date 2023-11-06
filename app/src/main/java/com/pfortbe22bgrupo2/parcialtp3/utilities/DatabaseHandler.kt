@@ -58,7 +58,8 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
 
     fun insertAdoption(dog: Dog): Int {
         val entity = dog.toEntity()
-        if (entity != null) {
+        val entry = dogDao.getAdoptionByName(entity.name, entity.owner_username)
+        if (entry == null) {
             try {
                 val id = dogDao.insertAdoption(entity).toInt()
                 insertDogImages(id, dog.image_urls?: arrayOf())
@@ -73,8 +74,10 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
 
     fun deleteAdoption(dog: Dog) {
         val entity = dog.toEntity()
-        if (entity != null) {
+        val entry = dogDao.getAdoptionByName(entity.name, entity.owner_username)
+        if (entry != null) {
             dogDao.deleteAdoption(entity)
+            dogImagesDao.deleteDogImagesById(entry.id)
         }
     }
 
@@ -100,6 +103,10 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
             dogImagesDao.insertDogImage(entity)
             count++
         }
+    }
+
+    fun deleteDogImagesById(id: Int) {
+        dogImagesDao.deleteDogImagesById(id)
     }
 
      fun getUserByUsername(username: String): UserEntity? {
@@ -135,8 +142,9 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
     }
 
     fun deleteFavorite(username: String, dogId: Int) {
-        val favoriteToDelete = UserFavoritesEntity(username, dogId)
-        userFavoritesDao.deleteFavorite(favoriteToDelete)
+        val favorite = userFavoritesDao.getUserFavoriteById(username, dogId)
+        if (favorite != null) {
+            userFavoritesDao.deleteFavorite(favorite)
+        }
     }
-
 }

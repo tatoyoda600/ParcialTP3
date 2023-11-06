@@ -45,6 +45,8 @@ class PublicationFragment : Fragment() {
                 val sex = if (binding.sexInput.checkedRadioButtonId == binding.femaleInput.id) Dog.FEMALE else Dog.MALE
                 val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
                 val username = pref.getString("userName", "")?: ""
+                val breed = binding.breedInput.text.toString()
+                val subbreed = binding.subbreedInput.text.toString()
                 val text = binding.textInput.text.toString()
                 val urls = binding.urlsInput.text.toString().split("\n", ", ", ",", "; ", ";", " ").toMutableList()
                 urls.removeAll { str: String -> str.isBlank() }
@@ -59,8 +61,8 @@ class PublicationFragment : Fragment() {
                             sex = sex,
                             weight = weight,
                             owner_username = username,
-                            owner = user.name,
-                            phone = user.phone,
+                            breed = breed,
+                            subbreed = if (subbreed == "none") subbreed else null,
                             text = text,
                             image_urls = urls.toTypedArray()
                         ));
