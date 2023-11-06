@@ -27,7 +27,7 @@ abstract class AppDatabase: RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "parcialtp3DB"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                     //).addMigrations().allowMainThreadQueries().build()
                 }
             }

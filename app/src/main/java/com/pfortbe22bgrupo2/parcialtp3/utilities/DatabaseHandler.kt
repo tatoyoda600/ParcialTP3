@@ -1,6 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.utilities
 
 import android.content.Context
+import android.util.Log
 import com.pfortbe22bgrupo2.parcialtp3.database.AppDatabase
 import com.pfortbe22bgrupo2.parcialtp3.database.DogDao
 import com.pfortbe22bgrupo2.parcialtp3.database.DogImagesDao
@@ -34,7 +35,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
     }
 
     fun getAdoptionList(): List<Dog> {
-        var output: MutableList<Dog> = mutableListOf()
+        val output: MutableList<Dog> = mutableListOf()
         val entities = dogDao.getAdoptionList()
 
         for (dog in entities) {
@@ -82,9 +83,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         val entities = dogImagesDao.getDogImagesById(id)
 
         for (image in entities) {
-            if (image.image_url != null) {
-                output.add(image.image_url)
-            }
+            output.add(image.image_url)
         }
 
         return output.toList()

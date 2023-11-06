@@ -50,4 +50,5 @@
     <string name="adoption_confirmation_modal_text">¿Estás seguro de que desea adoptar?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="publish_adoption">Publicacion de adopcion realizada con exito!</string>
 </resources>

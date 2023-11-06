@@ -6,8 +6,7 @@
     android:layout_height="150dp"
     android:gravity="top"
     android:padding="10dp"
-    android:background="@color/white"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    style="@style/Selected.Item">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -45,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="Nombre"
-        android:textColor="@android:color/black"
+        android:textColor="@color/ColorSelected"
         android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@id/Bienvenida" />
