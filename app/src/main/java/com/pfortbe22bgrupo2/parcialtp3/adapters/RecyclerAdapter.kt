@@ -29,13 +29,13 @@ class RecyclerAdapter(private val context: Context, private var dogList: Mutable
     override fun getItemCount(): Int = dogList.size
 
     override fun onBindViewHolder(holder: FavoritesItemHolder, position: Int) {
-        holder.setName(dogList[position].name!!)
+        holder.setName(dogList[position].name)
         holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
         if(showFavIcon) {
             holder.setDogAge(dogList[position].age.toString())
             holder.setDogSex(dogList[position].sex)
             holder.setDogBreed(dogList[position].breed)
-            holder.setDogSubBreed(dogList[position].subbreed!!)
+            holder.setDogSubBreed(dogList[position].subbreed)
             holder.getCardLayout().setOnClickListener() {
                 showAdoptionDetails?.onItemClickAction(position)
             }

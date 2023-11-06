@@ -138,7 +138,6 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
     fun insertFavorite(username: String, dogId: Int): Boolean {
         try {
             userFavoritesDao.insertFavorite(UserFavoritesEntity(username, dogId))
-            dogDao.updateFavoriteStatus(dogId, true)
             return true
         }
         catch (error: Exception) {
@@ -181,12 +180,10 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
             try {
                 dogDao.deleteAdoption(entity)
                 val adoptedEntity = Dog.createFromEntity(entity, this).toAdoptedEntity(username)
-                val output = adoptedDogDao.insertAdoptedDog(adoptedEntity)
-                Log.i("DatabaseHandler", "Adopted dog with id $dogId, output: $output")
+                adoptedDogDao.insertAdoptedDog(adoptedEntity)
                 return true
             }
             catch (error: Exception) {
-                Log.e("DatabaseHandler", error.message.toString())
                 return false
             }
         }

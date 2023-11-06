@@ -37,7 +37,7 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
         binding.dogBreedTextViewId.text = breed
     }
 
-    fun setDogSubBreed(subBreed: String) {
+    fun setDogSubBreed(subBreed: String?) {
         binding.dogSubBreedTextViewId.text = subBreed
     }
 
