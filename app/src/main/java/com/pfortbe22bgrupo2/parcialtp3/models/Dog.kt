@@ -2,6 +2,7 @@ package com.pfortbe22bgrupo2.parcialtp3.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.pfortbe22bgrupo2.parcialtp3.entities.AdoptedDogEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import kotlinx.coroutines.Dispatchers
@@ -78,6 +79,19 @@ data class Dog(
         return output
     }
 
+    fun toAdoptedEntity(newOwnerUsername: String): AdoptedDogEntity {
+        var output: AdoptedDogEntity? = null
+
+        if (id != 0) {
+            output = AdoptedDogEntity(id, name, age, location, sex, weight, owner_username, newOwnerUsername, breed, subbreed, text)
+        }
+        else {
+            output = AdoptedDogEntity(name, age, location, sex, weight, owner_username, newOwnerUsername, breed, subbreed, text)
+        }
+
+        return output
+    }
+
     companion object {
         const val MALE = "Macho"
         const val FEMALE = "Hembra"
@@ -94,7 +108,6 @@ data class Dog(
         }
 
         fun createFromEntity(dogEntity: DogEntity, databaseHandler: DatabaseHandler): Dog {
-            val userEntity = databaseHandler.getUserByUsername(dogEntity.owner_username)
             val imageUrls = databaseHandler.getDogImagesById(dogEntity.id)
 
             return Dog(
@@ -108,6 +121,24 @@ data class Dog(
                 dogEntity.breed,
                 dogEntity.subbreed,
                 dogEntity.text,
+                imageUrls.toTypedArray()
+            )
+        }
+
+        fun createFromEntity(adoptedDogEntity: AdoptedDogEntity, databaseHandler: DatabaseHandler): Dog {
+            val imageUrls = databaseHandler.getDogImagesById(adoptedDogEntity.id)
+
+            return Dog(
+                adoptedDogEntity.id,
+                adoptedDogEntity.name,
+                adoptedDogEntity.age,
+                adoptedDogEntity.location,
+                adoptedDogEntity.sex,
+                adoptedDogEntity.weight,
+                adoptedDogEntity.original_owner_username,
+                adoptedDogEntity.breed,
+                adoptedDogEntity.subbreed,
+                adoptedDogEntity.text,
                 imageUrls.toTypedArray()
             )
         }
