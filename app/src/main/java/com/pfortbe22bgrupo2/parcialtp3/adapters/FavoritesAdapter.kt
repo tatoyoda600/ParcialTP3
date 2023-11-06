@@ -3,6 +3,7 @@ package com.pfortbe22bgrupo2.parcialtp3.adapters
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +14,9 @@ import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
 
-class FavoritesAdapter(private val context: Context, private var dogList: MutableList<Dog>, private val showAdoptionDetails: ShowAdoptionDetailsListener
-                      /*, private val favoritesViewModel: FavoritesViewModel,
-                       private val username: String*/): RecyclerView.Adapter<FavoritesItemHolder>() {
+class FavoritesAdapter(private val context: Context, private var dogList: MutableList<Dog>, private val showAdoptionDetails: ShowAdoptionDetailsListener?,
+                       private val favoritesViewModel: FavoritesViewModel?,
+                       private val username: String, private val showAllFields: Boolean): RecyclerView.Adapter<FavoritesItemHolder>() {
 
     private lateinit var binding: ItemDogBinding
 
@@ -27,6 +28,7 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
     override fun getItemCount(): Int = dogList.size
 
     override fun onBindViewHolder(holder: FavoritesItemHolder, position: Int) {
+        if(showAllFields){
         holder.setName(dogList[position].name!!)
         holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
         holder.setDogAge(dogList[position].age.toString())
@@ -34,10 +36,15 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
         //holder.setDogSubBreed("dasdsa")
         holder.setDogSex(dogList[position].sex.toString())
         holder.getCardLayout().setOnClickListener() {
-            showAdoptionDetails.onItemClickAction(position)
+            showAdoptionDetails?.onItemClickAction(position)
         }
         holder.getSaveButtonItem().setOnClickListener{
             setOnRemoveItemAction(position)
+        }
+        } else {
+            holder.setName(dogList[position].name!!)
+            holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
+            holder.getSaveButtonItem().visibility = View.INVISIBLE
         }
     }
 
@@ -47,7 +54,7 @@ class FavoritesAdapter(private val context: Context, private var dogList: Mutabl
         builder.setMessage(context.getString(R.string.remove_from_favs_modal_text))
         builder.setPositiveButton(R.string.yes) { dialog, which ->
             val dog = dogList[position]
-            //favoritesViewModel.deleteFavorite(username, dog.id)
+            favoritesViewModel?.deleteFavorite(username, dog.id) //esto es algo que debería hacer el adapter?? consultar
             dogList.removeAt(position) //es necesario? probar
 
             // notifico la eliminación del elemento en la posición 'position'

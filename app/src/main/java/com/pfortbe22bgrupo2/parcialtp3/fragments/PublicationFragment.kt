@@ -66,7 +66,7 @@ class PublicationFragment : Fragment() {
                                 binding.root.findNavController()
                                     .navigate(
                                         PublicationFragmentDirections
-                                            .actionPublicationFragmentToDetailsActivity(dog)
+                                            .actionPublicationFragmentToDetailsFragment(dog)
                                     );
                             }
                         }

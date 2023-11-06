@@ -1,5 +1,6 @@
 package com.pfortbe22bgrupo2.parcialtp3.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,6 +42,7 @@ class DetailsViewModel @Inject constructor(
             viewModelScope.launch {
                 databaseHandler.insertAdoption(dog)
             }
+            Log.i("DetailsViewModel", "Adopted dog: ${dog.name}")
         }
     }
 }

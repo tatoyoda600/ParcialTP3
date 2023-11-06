@@ -1,6 +1,5 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfortbe22bgrupo2.parcialtp3.R
-import com.pfortbe22bgrupo2.parcialtp3.activities.DetailsActivity
 import com.pfortbe22bgrupo2.parcialtp3.adapters.FavoritesAdapter
 import com.pfortbe22bgrupo2.parcialtp3.data.DogsList
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentFavoritesBinding
@@ -40,8 +38,8 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //loadData()
-        initRecyclerViewMock()
+        loadData()
+        //initRecyclerViewMock()
     }
 
      private fun loadData() {
@@ -52,16 +50,28 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
                  binding.noElementsTextView.text = getString(R.string.no_elements_found)
              } else {
                  binding.noElementsTextView.visibility = View.GONE
-                 //initRecyclerView()
+                 initRecyclerView()
                  favoritesAdapter.updateData(this.favoriteDogs)
              }
          }
     }
 
-   /* private fun initRecyclerView() {
+   private fun initRecyclerView() {
         binding.favoritesRecyclerView.setHasFixedSize(false)
         try {
-            favoritesAdapter = FavoritesAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, username)
+            favoritesAdapter = FavoritesAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, username, true)
+            linearLayoutManager = LinearLayoutManager(context)
+            binding.favoritesRecyclerView.layoutManager = linearLayoutManager
+            binding.favoritesRecyclerView.adapter = favoritesAdapter
+        } catch (e: Exception) {
+            Log.e("FavoritesFragment", getString(R.string.error_initialization_recycler_view_failed, e.message))
+        }
+    }
+
+    /*private fun initRecyclerViewMock() {
+        binding.favoritesRecyclerView.setHasFixedSize(false)
+        try {
+            favoritesAdapter = FavoritesAdapter(binding.root.context, dogList.dogList, this, true)
             linearLayoutManager = LinearLayoutManager(context)
             binding.favoritesRecyclerView.layoutManager = linearLayoutManager
             binding.favoritesRecyclerView.adapter = favoritesAdapter
@@ -70,32 +80,17 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
         }
     }*/
 
-    private fun initRecyclerViewMock() {
-        binding.favoritesRecyclerView.setHasFixedSize(false)
-        try {
-            favoritesAdapter = FavoritesAdapter(binding.root.context, dogList.dogList, this)
-            linearLayoutManager = LinearLayoutManager(context)
-            binding.favoritesRecyclerView.layoutManager = linearLayoutManager
-            binding.favoritesRecyclerView.adapter = favoritesAdapter
-        } catch (e: Exception) {
-            Log.e("FavoritesFragment", getString(R.string.error_initialization_recycler_view_failed, e.message))
-        }
-    }
-
     override fun onItemClickAction(position: Int) {
-        val intent = Intent(activity, DetailsActivity::class.java)
-        //intent.putExtra("dog", favoriteDogs[position])
-        intent.putExtra("dog", dogList.dogList[position])
-        startActivity(intent)
-    }
+        val dog = dogList.dogList[position]
+        val fragment = DetailsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("dog", dog)
+            }
+        }
 
-    /*
-    *  override fun onItemClickAction(position: Int) {
-        val intent = Intent(activity, DetailsActivity(favoritesViewModel, username)::class.java)
-        intent.putExtra("dog", favoriteDogs[position])
-        //intent.putExtra("dog", dogList.dogList[position])
-        startActivity(intent)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host, fragment)
+            .commit()
     }
-    * */
 
 }
