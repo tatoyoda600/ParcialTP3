@@ -1,7 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.services
 
+import com.pfortbe22bgrupo2.parcialtp3.models.Breeds
 import com.pfortbe22bgrupo2.parcialtp3.models.BreedsResponse
-import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.models.ImagesResponse
 import retrofit2.Call
 import retrofit2.http.GET

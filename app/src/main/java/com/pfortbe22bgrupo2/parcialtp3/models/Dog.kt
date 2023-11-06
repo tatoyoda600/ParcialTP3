@@ -166,7 +166,7 @@ data class Dog(
         SAN_LUIS("San Luis"),
         SANTA_CRUZ("Santa Cruz"),
         SANTA_FE("Santa Fe"),
-        SANTIAGO_DEL_ESTERO("Tierra del Fuego"),
+        SANTIAGO_DEL_ESTERO("Santiago del Estero"),
         TIERRA_DEL_FUEGO("Tierra del Fuego"),
         TUCUMAN("Tucuman")
     }
