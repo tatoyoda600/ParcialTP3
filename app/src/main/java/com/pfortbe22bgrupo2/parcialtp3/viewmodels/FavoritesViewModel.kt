@@ -27,4 +27,11 @@ class FavoritesViewModel @Inject constructor(
             favoriteDogs.postValue(dogList)
         }
     }
+
+    fun deleteFavorite(userName: String, id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseHandler.deleteFavorite(userName, id)
+            loadFavoriteDogs(userName)
+        }
+    }
 }

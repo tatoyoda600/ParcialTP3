@@ -10,9 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.pfortbe22bgrupo2.parcialtp3.R
-import com.pfortbe22bgrupo2.parcialtp3.activities.DetailsActivity
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.PublicationViewModel
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentPublicationBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
@@ -72,14 +72,19 @@ class PublicationFragment : Fragment() {
                             // Put dog up for adoption successfully!
                             val dog = databaseHandler.getAdoptionById(id)
                             if (dog != null) {
-                                val intent = Intent(activity, DetailsActivity::class.java)
-                                intent.putExtra("dog", dog)
                                 withContext(Dispatchers.Main) {
                                     val toast = Toast(context)
                                     toast.setText(R.string.publish_adoption)
                                     toast.show()
                                 }
-                                startActivity(intent)
+                                val fragment = DetailsFragment().apply {
+                                    arguments = Bundle().apply {
+                                        putParcelable("dog", dog)
+                                    }
+                                }
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.nav_host, fragment)
+                                    .commit()
                             }
                         }
                     }
