@@ -12,7 +12,11 @@ import com.pfortbe22bgrupo2.parcialtp3.holders.FavoritesItemHolder
 import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 
-class FavoritesAdapter(private val context: Context, private var dogList: MutableList<Dog>, private val showAdoptionDetails: ShowAdoptionDetailsListener): RecyclerView.Adapter<FavoritesItemHolder>() {
+class FavoritesAdapter(
+    private val context: Context,
+    private var dogList: MutableList<Dog>,
+    private val showAdoptionDetails: ShowAdoptionDetailsListener
+): RecyclerView.Adapter<FavoritesItemHolder>() {
 
     private lateinit var binding: ItemDogBinding
 

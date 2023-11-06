@@ -35,7 +35,7 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         return binding.root
@@ -47,7 +47,6 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     }
 
      private fun loadData() {
-
          val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
          val userName = pref.getString("userName","").toString()
 
