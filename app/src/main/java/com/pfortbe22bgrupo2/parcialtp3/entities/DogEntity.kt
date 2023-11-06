@@ -41,7 +41,7 @@ class DogEntity(
     @ColumnInfo(name = "breed")
     val breed: String
 
-    @ColumnInfo(name = "breed")
+    @ColumnInfo(name = "subbreed")
     val subbreed: String?
 
     @ColumnInfo(name = "text")

@@ -19,7 +19,7 @@ interface DogDao  {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertAdoption(dog: DogEntity): Long
 
-    @Query("SELECT * FROM adoption_list WHERE name = :name AND owner_username = owner_username")
+    @Query("SELECT * FROM adoption_list WHERE name = :name AND owner_username = :owner_username")
     fun getAdoptionByName(name: String, owner_username: String): DogEntity?
 
     @Delete
