@@ -4,21 +4,21 @@
     <item
         android:id="@+id/homeFragment2"
         android:title="Home"
-        android:icon="@drawable/outline_home_24"/>
+        android:icon="@drawable/home_icon_selector"/>
 
     <item
         android:id="@+id/favoritesFragment2"
         android:title="Favoritos"
-        android:icon="@drawable/outline_menu_book_24"/>
+        android:icon="@drawable/favorites_icon_selector"/>
 
     <item
         android:id="@+id/adoptedFragment2"
         android:title="Adopción"
-        android:icon="@drawable/outline_chat_bubble_outline_24"/>
+        android:icon="@drawable/details_icon_selector"/>
 
     <item
         android:id="@+id/publicationFragment2"
         android:title="Publicación"
-        android:icon="@drawable/baseline_person_outline_24"/>
+        android:icon="@drawable/person_icon_selector"/>
 
 </menu>

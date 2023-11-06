@@ -5,9 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FavoritesFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorites_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Favorites" />
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/no_elements_text_view"
+        android:layout_width="266dp"
+        android:layout_height="88dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/main_atributes_text"
+        android:textSize="20sp"/>
 
 </FrameLayout>
