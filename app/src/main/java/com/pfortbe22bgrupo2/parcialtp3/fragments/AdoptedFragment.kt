@@ -54,7 +54,7 @@ class AdoptedFragment : Fragment() {
     private fun loadData() {
         val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         userName = pref.getString("userName","").toString()
-        viewModel.loadAdoptedDogs()
+        viewModel.loadAdoptedDogs(userName)
         viewModel.adoptedDogs.observe(viewLifecycleOwner) { adoptedDogsList ->
             this.adoptedDogs = adoptedDogsList.toMutableList()
             Log.i("AdoptedFragment", "Getting adopted dogs for user: $userName")

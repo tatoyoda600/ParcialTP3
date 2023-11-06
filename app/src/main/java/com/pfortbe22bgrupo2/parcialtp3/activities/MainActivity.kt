@@ -150,7 +150,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setBadgeCount() {
-        adoptedViewModel.loadAdoptedListTotal()
+        val pref = this.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userName = pref.getString("userName","").toString()
+        adoptedViewModel.loadAdoptedListTotal(userName)
         adoptedViewModel.totalAdoptionsNumber.observe(this) { totalAdoptions ->
             val badge : BadgeDrawable = binding.bottomNavigation.getOrCreateBadge(R.id.adoptedFragment2)
             badge.isVisible = true

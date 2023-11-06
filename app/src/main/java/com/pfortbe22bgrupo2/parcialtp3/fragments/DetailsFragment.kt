@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -109,7 +110,7 @@ class DetailsFragment : Fragment() {
             builder.setPositiveButton(R.string.yes) { dialog, which ->
                 Log.i("DetailsFragment", "Starting adoption process for dog: ${dog.name}")
                 hideBottomSheet()
-                viewModel.adoptFromFavorites(dog.id)
+                viewModel.adoptFromFavorites(dog)
                 goToAdoptedFragment()
             }
             builder.setNegativeButton(R.string.no) { dialog, which ->
@@ -160,9 +161,9 @@ class DetailsFragment : Fragment() {
 
     private fun goToAdoptedFragment() {
         val fragment = AdoptedFragment()
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.nav_host, fragment)
-        transaction.commit()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host, fragment)
+            .commit()
     }
 
 }

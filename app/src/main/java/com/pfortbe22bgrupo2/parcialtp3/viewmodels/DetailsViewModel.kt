@@ -37,14 +37,11 @@ class DetailsViewModel @Inject constructor(
         return selectedDog
     }
 
-    fun adoptFromFavorites(id: Int) {
-        val dog = databaseHandler.getAdoptionById(id)
-        if (dog != null) {
+    fun adoptFromFavorites(dog: Dog) {
             viewModelScope.launch(Dispatchers.IO){
-                databaseHandler.deleteFavorite(dog.owner_username, id)
-                //databaseHandler.adopt
-            }
+                databaseHandler.adoptDog(dog.owner_username, dog.id)
+                databaseHandler.deleteFavorite(dog.owner_username, dog.id)
+            Log.i("DetailsViewModel", "Adopted dog: ${dog.id}")
         }
-        Log.i("DetailsViewModel", "Adopted dog: ${id}")
     }
 }

@@ -33,9 +33,9 @@ class RecyclerAdapter(private val context: Context, private var dogList: Mutable
         holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
         if(showFavIcon) {
             holder.setDogAge(dogList[position].age.toString())
-            holder.setDogBreed("dsada")
-            holder.setDogSubBreed("dasdsa")
             holder.setDogSex(dogList[position].sex)
+            holder.setDogBreed(dogList[position].breed)
+            holder.setDogSubBreed(dogList[position].subbreed!!)
             holder.getCardLayout().setOnClickListener() {
                 showAdoptionDetails?.onItemClickAction(position)
             }
@@ -55,6 +55,7 @@ class RecyclerAdapter(private val context: Context, private var dogList: Mutable
         builder.setPositiveButton(R.string.yes) { dialog, which ->
             val dog = dogList[position]
             favoritesViewModel?.deleteFavorite(username, dog.id)
+
             if (position == 0 && dogList.isNotEmpty()) {
                 notifyItemChanged(0)
             } else if (position < dogList.size) {

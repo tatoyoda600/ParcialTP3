@@ -17,16 +17,16 @@ class AdoptedViewModel @Inject constructor(
     val totalAdoptionsNumber = MutableLiveData<Int>()
     val adoptedDogs = MutableLiveData<List<Dog>>()
 
-    fun loadAdoptedListTotal()  {
+    fun loadAdoptedListTotal(userName : String)  {
         viewModelScope.launch(Dispatchers.IO) {
-            val totalAdoptions = databaseHandler.getAdoptionList().size
+            val totalAdoptions = databaseHandler.getAdoptedDogListByUser(userName).size
             totalAdoptionsNumber.postValue(totalAdoptions)
         }
     }
 
-    fun loadAdoptedDogs() {
+    fun loadAdoptedDogs(userName : String){
         viewModelScope.launch(Dispatchers.IO) {
-            val list =  databaseHandler.getAdoptionList()
+            val list =  databaseHandler.getAdoptedDogListByUser(userName)
             val dogList = mutableListOf<Dog>()
             if(list.isNotEmpty()){
                 for (dog in list) {
