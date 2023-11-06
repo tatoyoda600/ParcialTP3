@@ -20,9 +20,6 @@
             android:name=".activities.Temp"
             android:exported="false" />
         <activity
-            android:name=".activities.DetailsActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.ImageViewActivity"
             android:exported="false" />
         <activity

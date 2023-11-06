@@ -1,15 +1,23 @@
 package com.pfortbe22bgrupo2.parcialtp3.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailsViewModel : ViewModel() {
-    private lateinit var databaseHandler: DatabaseHandler
+@HiltViewModel
+class DetailsViewModel @Inject constructor(
+    private val databaseHandler: DatabaseHandler
+): ViewModel() {
+
+    private val selectedDog: MutableLiveData<Dog> = MutableLiveData()
 
     // Método en tu ViewModel que realiza la operación de base de datos
     fun getDogImagesById(id: Int) {
@@ -20,7 +28,6 @@ class DetailsViewModel : ViewModel() {
             // Actualiza la UI con los datos, si es necesario
         }
     }
-    private val selectedDog: MutableLiveData<Dog> = MutableLiveData()
 
     fun setSelectedDog(dog: Dog) {
         selectedDog.value = dog
@@ -28,5 +35,13 @@ class DetailsViewModel : ViewModel() {
 
     fun getSelectedDog(): LiveData<Dog> {
         return selectedDog
+    }
+
+    fun adoptFromFavorites(dog: Dog) {
+            viewModelScope.launch(Dispatchers.IO){
+                databaseHandler.adoptDog(dog.owner_username, dog.id)
+                databaseHandler.deleteFavorite(dog.owner_username, dog.id)
+            Log.i("DetailsViewModel", "Adopted dog: ${dog.id}")
+        }
     }
 }

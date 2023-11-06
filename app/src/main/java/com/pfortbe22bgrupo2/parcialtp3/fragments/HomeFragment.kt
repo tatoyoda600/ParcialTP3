@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfortbe22bgrupo2.parcialtp3.R
-import com.pfortbe22bgrupo2.parcialtp3.activities.DetailsActivity
 import com.pfortbe22bgrupo2.parcialtp3.adapters.AdoptionDogAdapter
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.HomeViewModel
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentHomeBinding
@@ -72,9 +71,17 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
     }
 
     override fun onItemClickAction(position: Int) {
-        val intent = Intent(activity, DetailsActivity::class.java)
-        intent.putExtra("dog", dogList[position])
-        startActivity(intent)
+        val dog = dogList[position]
+        val fragment = DetailsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("dog", dog)
+            }
+        }
+        Log.i("HomeFragment", "Showing details of dog: ${dog.name}")
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host, fragment)
+            .commit()
+
     }
 
     override fun addFavorite(position: Int) {
@@ -86,7 +93,7 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
         CoroutineScope(Dispatchers.IO).launch {
             databaseHandler.insertFavorite(userName,dogId)
             Log.d("MENSAJE DE AGREGADO A FAVORITO", "SE DEBERIA AGREGAR A FAVORITOS")
-
+            Log.i("HomeFragment", "Adding dog: ${dogList[position].name} to favorites of user: $userName")
         }
     }
 }

@@ -15,7 +15,6 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
     init {
         this.binding = binding
         binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
-
     }
 
     fun setName(name:String) {
@@ -46,7 +45,7 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
         return binding.cardItemContainer
     }
 
-    fun getSaveButtonItem(): ImageView {
+    fun getFavIconImageView(): ImageView {
         return binding.favIconImageView
     }
 

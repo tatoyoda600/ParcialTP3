@@ -153,8 +153,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:background="@drawable/owner_image_style"
-            android:src="@drawable/img"/>
+            android:background="@drawable/owner_image_style" />
 
         <LinearLayout
             android:layout_width="249dp"
