@@ -26,8 +26,5 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             databaseHandler.insertFavorite(userName,dogId)
         }
-
     }
-
-
 }

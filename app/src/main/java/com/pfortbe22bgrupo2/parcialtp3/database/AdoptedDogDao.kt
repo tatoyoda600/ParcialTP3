@@ -22,6 +22,7 @@ interface AdoptedDogDao  {
 
     @Delete
     fun deleteAdoptedDog(dog: AdoptedDogEntity)
+
     @Query("SELECT COUNT(*) FROM adopted_list")
     fun getAdoptionsCount(): Int
 }

@@ -135,10 +135,14 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         return userFavoritesDao.getFavoriteIDsByUsername(username)
     }
 
+    fun isIDFavoriteOfUser(dogId: Int, username: String): Boolean {
+        val entity = userFavoritesDao.getUserFavoriteById(username, dogId)
+        return entity != null
+    }
+
     fun insertFavorite(username: String, dogId: Int): Boolean {
         try {
             userFavoritesDao.insertFavorite(UserFavoritesEntity(username, dogId))
-            dogDao.updateFavorite(dogId, true)
             return true
         }
         catch (error: Exception) {
@@ -150,7 +154,6 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         val favorite = userFavoritesDao.getUserFavoriteById(username, dogId)
         if (favorite != null) {
             userFavoritesDao.deleteFavorite(favorite)
-            dogDao.updateFavorite(dogId, false)
         }
     }
 
@@ -193,15 +196,13 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         return false
     }
 
-
     fun getAdoptionsCount(): Int {
         return adoptedDogDao.getAdoptionsCount()
     }
 
     fun updateProfileImageToUser(urlImage: String, userName: String) {
-        if (urlImage.isNullOrEmpty()) {
+        if (urlImage.isEmpty()) {
             userDao.updateImageUrl(urlImage, userName)
         }
     }
-
 }

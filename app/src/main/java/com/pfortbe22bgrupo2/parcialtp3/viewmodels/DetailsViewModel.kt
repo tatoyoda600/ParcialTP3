@@ -49,8 +49,8 @@ class DetailsViewModel @Inject constructor(
                 // Después de realizar la adopción, obtienes el nuevo total de adopciones.
                 val newTotalAdoptions = getTotalAdoptionsCount()
 
-                    // Llamas a la función lambda para notificar el cambio del conteo de adopciones.
-                    onAdoptionsCountUpdated(newTotalAdoptions)
+                // Llamas a la función lambda para notificar el cambio del conteo de adopciones.
+                onAdoptionsCountUpdated(newTotalAdoptions)
 
             } else {
                 Log.i("DetailsViewModel", "User not found or null")

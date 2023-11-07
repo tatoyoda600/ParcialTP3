@@ -23,8 +23,7 @@ data class Dog(
     val breed: String,
     val subbreed: String?,
     val text: String,
-    val image_urls: Array<String>?,
-    var isFavorite: Boolean
+    val image_urls: Array<String>?
 ): Parcelable {
     constructor(
         name: String,
@@ -36,9 +35,8 @@ data class Dog(
         breed: String,
         subbreed: String? = null,
         text: String,
-        image_urls: Array<String>?,
-        isFavorite: Boolean
-    ): this(0, name, age, location, sex, weight, owner_username, breed, subbreed, text, image_urls, isFavorite)
+        image_urls: Array<String>?
+    ): this(0, name, age, location, sex, weight, owner_username, breed, subbreed, text, image_urls)
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -51,8 +49,7 @@ data class Dog(
         parcel.readString().toString(),
         parcel.readString(),
         parcel.readString().toString(),
-        parcel.createStringArray(),
-        parcel.readString().toBoolean()
+        parcel.createStringArray()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -78,10 +75,10 @@ data class Dog(
         var output: DogEntity? = null
 
         if (id != 0) {
-            output = DogEntity(id, name, age, location, sex, weight, owner_username, breed, subbreed, text, isFavorite)
+            output = DogEntity(id, name, age, location, sex, weight, owner_username, breed, subbreed, text)
         }
         else {
-            output = DogEntity(name, age, location, sex, weight, owner_username, breed, subbreed, text, isFavorite)
+            output = DogEntity(name, age, location, sex, weight, owner_username, breed, subbreed, text)
         }
 
         return output
@@ -130,8 +127,7 @@ data class Dog(
                 dogEntity.breed,
                 dogEntity.subbreed,
                 dogEntity.text,
-                imageUrls.toTypedArray(),
-                dogEntity.isFavorite
+                imageUrls.toTypedArray()
             )
         }
 
@@ -149,8 +145,7 @@ data class Dog(
                 adoptedDogEntity.breed,
                 adoptedDogEntity.subbreed,
                 adoptedDogEntity.text,
-                imageUrls.toTypedArray(),
-                isFavorite = false
+                imageUrls.toTypedArray()
             )
         }
     }

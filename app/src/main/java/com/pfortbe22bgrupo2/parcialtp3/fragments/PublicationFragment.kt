@@ -110,8 +110,7 @@ class PublicationFragment : Fragment() {
                         breed = breed,
                         subbreed = if (subbreed == "none") subbreed else null,
                         text = text,
-                        image_urls = urls.toTypedArray(),
-                        isFavorite = false
+                        image_urls = urls.toTypedArray()
                     ));
 
                     if (id != -1) {

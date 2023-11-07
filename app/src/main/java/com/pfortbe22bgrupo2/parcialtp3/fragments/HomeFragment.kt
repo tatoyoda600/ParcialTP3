@@ -40,7 +40,14 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        adoptionDogAdapter = AdoptionDogAdapter(dogList, this, this)
+        val databaseHandler = DatabaseHandler(binding.root.context)
+        val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userName = pref.getString("userName","").toString()
+        val thisFragment = this
+        CoroutineScope(Dispatchers.IO).launch {
+            val favorites = databaseHandler.getFavoriteIDsByUsername(userName)
+            adoptionDogAdapter = AdoptionDogAdapter(dogList, thisFragment, thisFragment, favorites)
+        }
         return binding.root
         
     }
