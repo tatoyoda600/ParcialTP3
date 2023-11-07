@@ -53,6 +53,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="publish_adoption">Publicacion de adopcion realizada con exito!</string>
+    <string name="dog_adoption">Perro adoptado con exito!</string>
     <string name="url">Ingrese URL de imagen</string>
+    <string name="filtros">Filtros</string>
+    <string name="shiba">Shiba</string>
+    <string name="husky">Husky</string>
+    <string name="tervuren">Tervuren</string>
+    <string name="boxer">Boxer</string>
     <string name="search">Buscar por raza</string>
 </resources>

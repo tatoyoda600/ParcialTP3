@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.pfortbe22bgrupo2.parcialtp3.activities.LoginActivity
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.LoginViewModel
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentLoginBinding
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserEntity
@@ -67,7 +68,7 @@ class LoginFragment : Fragment() {
                 databaseHandler.insertUser(user)
             }
             saveUserNameInSharedPreferences()
-            navToMainActivity()
+            (activity as LoginActivity).verifyCurrentUser()
         }
     }
 
@@ -78,10 +79,4 @@ class LoginFragment : Fragment() {
         editor?.putString("userName", userName)
         editor?.apply()
     }
-
-    private fun navToMainActivity() {
-        val action = LoginFragmentDirections.actionLoginFragmentToMainActivity()
-        findNavController().navigate(action)
-    }
-
 }

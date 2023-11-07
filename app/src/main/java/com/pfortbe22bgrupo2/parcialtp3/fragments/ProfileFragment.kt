@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
         val imageUrl = dialogView.findViewById<EditText>(R.id.url_image_edit_text).text.toString()*/
         // NO ME CARGA LA IMAGEN DE UNA- TENGO QUE APRETAR DOS VECES EL BOTON
         val dialogView = inputBinding.root
-        val imageUrl = inputBinding.urlImageEditText.text.toString()
+        val imageUrlInput = inputBinding.urlImageEditText
         if (dialogView.parent != null) {
             (dialogView.parent as ViewGroup).removeView(dialogView)
         }
@@ -79,6 +79,7 @@ class ProfileFragment : Fragment() {
             .setTitle("Ingresar URL de la Foto")
             .setView(dialogView)
             .setPositiveButton("Subir") { dialog, which ->
+                val imageUrl = imageUrlInput.text.toString()
                 if (imageUrl.isNotEmpty()) {
                     Glide.with(requireContext())
                         .load(imageUrl)

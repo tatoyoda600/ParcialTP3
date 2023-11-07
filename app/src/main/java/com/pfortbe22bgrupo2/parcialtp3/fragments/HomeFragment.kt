@@ -1,11 +1,8 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
 import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.adapters.AdoptionDogAdapter
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.HomeViewModel
@@ -32,6 +30,7 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
     lateinit var binding : FragmentHomeBinding
     private var dogList: MutableList<Dog> = mutableListOf()
     private lateinit var adoptionDogAdapter: AdoptionDogAdapter
+    private lateinit var dogs: MutableList<Dog>
 
 
     override fun onCreateView(
@@ -46,7 +45,25 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
         val thisFragment = this
         CoroutineScope(Dispatchers.IO).launch {
             val favorites = databaseHandler.getFavoriteIDsByUsername(userName)
-            adoptionDogAdapter = AdoptionDogAdapter(dogList, thisFragment, thisFragment, favorites)
+            adoptionDogAdapter = AdoptionDogAdapter(binding.root.context, dogList, thisFragment, thisFragment, favorites, userName)
+        }
+
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            val listNames: MutableList<String> = mutableListOf()
+            if(!checkedIds.isEmpty()){
+                dogs = mutableListOf()
+                for (chipId in checkedIds){
+                    val chipName = binding.chipGroup.findViewById<Chip>(chipId).text.toString()
+                    listNames.add(chipName)
+                }
+            }
+            chipFilter(listNames)
+            //else{
+//                for (chipId in checkedIds){
+//                    val chipName = binding.chipGroup.findViewById<Chip>(chipId).text.toString()
+//                    chipFilter(chipName)
+//                }
+//            }
         }
         return binding.root
         
@@ -69,6 +86,21 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
                 }
             dogsFiltered = dogsFiltered.toMutableList()
             adoptionDogAdapter.updateData(dogsFiltered)
+        }
+    }
+
+    private fun chipFilter(chipNames: List<String>) {
+        if(!chipNames.isEmpty()){
+            for (chipN in chipNames){
+                val dogsFiltered = dogList.filter { dog ->
+                    dog.breed.lowercase().contains(chipN.lowercase())
+                }
+                dogs.addAll(dogsFiltered)
+            }
+            adoptionDogAdapter.updateData(dogs)
+            }
+        else{
+            adoptionDogAdapter.updateData(dogList)
         }
     }
 
@@ -95,7 +127,6 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
         }
     }
 
-
     override fun onItemClickAction(position: Int) {
         val dog = dogList[position]
         val fragment = DetailsFragment().apply {
@@ -114,6 +145,18 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
         val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         val userName = pref.getString("userName","").toString()
         val dogId = dogList[position].id
+
+
+//        //CHANGE BETWEEN FILLED AND OUTLINED FAV ICON IMAGE
+//        val image = binding.root.findViewById<ImageView>(R.id.fav_icon_image_view)
+//        image.isActivated = !image.isActivated
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//            databaseHandler.insertFavorite(userName,dogId)
+//            Log.d("MENSAJE DE AGREGADO A FAVORITO", "SE DEBERIA AGREGAR A FAVORITOS")
+//            Log.i("HomeFragment", "Adding dog: ${dogList[position].name} to favorites of user: $userName")
+//        }
+
         homeViewModel.addDogToFavorites(userName, dogId)
         Log.i("HomeFragment", "Adding dog: ${dogList[position].name} to favorites of user: $userName")
 
