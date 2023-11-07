@@ -1,6 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
 class AdoptedViewModel @Inject constructor(
     private val databaseHandler: DatabaseHandler
@@ -17,25 +19,27 @@ class AdoptedViewModel @Inject constructor(
     val totalAdoptionsNumber = MutableLiveData<Int>()
     val adoptedDogs = MutableLiveData<List<Dog>>()
 
-    fun loadAdoptedListTotal(userName : String)  {
+    // Cargar el número total de adopciones
+    fun loadAdoptedListTotal(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val totalAdoptions = databaseHandler.getAdoptedDogListByUser(userName).size
-            totalAdoptionsNumber.postValue(totalAdoptions)
+            try {
+                val totalAdoptions = databaseHandler.getAdoptedDogListByUser(userName).size
+                totalAdoptionsNumber.postValue(totalAdoptions)
+            } catch (e: Exception) {
+                Log.e("AdoptedViewModel", "Error al cargar el número total de adopciones: ${e.message}")
+            }
         }
     }
 
-    fun loadAdoptedDogs(userName : String){
+    // Cargar la lista de perros adoptados
+    fun loadAdoptedDogs(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val list =  databaseHandler.getAdoptedDogListByUser(userName)
-            val dogList = mutableListOf<Dog>()
-            if(list.isNotEmpty()){
-                for (dog in list) {
-                    dogList.add(dog)
-                }
-            } else {
-               Log.i("AdoptedViewModel", "No adopted dogs found")
+            try {
+                val list = databaseHandler.getAdoptedDogListByUser(userName)
+                adoptedDogs.postValue(list)
+            } catch (e: Exception) {
+                Log.e("AdoptedViewModel", "Error al cargar la lista de perros adoptados: ${e.message}")
             }
-            adoptedDogs.postValue(dogList)
         }
     }
 }

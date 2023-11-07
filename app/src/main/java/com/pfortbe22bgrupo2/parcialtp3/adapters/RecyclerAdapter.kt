@@ -35,7 +35,7 @@ class RecyclerAdapter(private val context: Context, private var dogList: Mutable
             holder.setDogAge(dogList[position].age.toString())
             holder.setDogSex(dogList[position].sex)
             holder.setDogBreed(dogList[position].breed)
-            holder.setDogSubBreed(dogList[position].subbreed!!)
+            //holder.setDogSubBreed(dogList[position].subbreed!!)
             holder.getCardLayout().setOnClickListener() {
                 showAdoptionDetails?.onItemClickAction(position)
             }

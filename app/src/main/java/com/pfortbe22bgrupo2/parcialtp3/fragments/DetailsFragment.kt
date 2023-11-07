@@ -1,6 +1,7 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -110,7 +111,9 @@ class DetailsFragment : Fragment() {
             builder.setPositiveButton(R.string.yes) { dialog, which ->
                 Log.i("DetailsFragment", "Starting adoption process for dog: ${dog.name}")
                 hideBottomSheet()
-                viewModel.adoptFromFavorites(dog)
+                val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+                val userName = pref.getString("userName","").toString()
+                viewModel.adoptFromFavorites(dog, userName)
                 goToAdoptedFragment()
             }
             builder.setNegativeButton(R.string.no) { dialog, which ->
