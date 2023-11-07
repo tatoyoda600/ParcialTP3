@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityLoginBinding
+import com.pfortbe22bgrupo2.parcialtp3.entities.UserEntity
 import com.pfortbe22bgrupo2.parcialtp3.fillerdata.DogsList
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,15 +34,26 @@ class LoginActivity : AppCompatActivity() {
         verifyCurrentUser()
     }
 
-    private fun verifyCurrentUser() {
+    fun verifyCurrentUser() {
         val pref = this.getSharedPreferences("user", Context.MODE_PRIVATE)
         val userName = pref.getString("userName",null)
         if (userName != null){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            val databaseHandler = DatabaseHandler(binding.root.context)
+            val thisActivity = this
+            CoroutineScope(Dispatchers.IO).launch {
+                val user: UserEntity? = databaseHandler.getUserByUsername(userName)
+                if (user != null) {
+                    val intent = Intent(thisActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                }
+                else {
+                    thisActivity.deleteSharedPreferences("user")
+                }
+            }
         }
     }
-
 
     private fun applySettings() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
