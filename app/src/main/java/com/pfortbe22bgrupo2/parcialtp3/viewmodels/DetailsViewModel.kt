@@ -42,7 +42,6 @@ class DetailsViewModel @Inject constructor(
             val user = databaseHandler.getUserByUsername(userName)
             if(user != null){
                 databaseHandler.adoptDog(userName, dog.id)
-                databaseHandler.deleteFavorite(userName, dog.id)
                 Log.i("DetailsViewModel", "Adopted dog: ${dog.id}")
             } else {
                 Log.i("DetailsViewModel", "User not found or null")
