@@ -39,6 +39,8 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadData()
+        // Actualiza el título de la ActionBar
+        requireActivity().title = "Favoritos"
     }
 
      private fun loadData() {
