@@ -4,4 +4,12 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="Selected.Chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipStrokeColor">@color/ColorSelected</item>
+        <item name="chipStrokeWidth">1sp</item>
+        <item name="chipIconVisible">true</item>
+        <item name="checkedIcon">@null</item>
+        <item name="chipBackgroundColor">@color/background_chip</item>
+    </style>
 </resources>
