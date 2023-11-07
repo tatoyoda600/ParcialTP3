@@ -17,4 +17,7 @@ interface UserDao {
 
     @Delete
     fun deleteUser(user: UserEntity)
+
+    @Query("UPDATE users SET image_url = :ulrImage WHERE username = :userName")
+    fun updateImageUrl(ulrImage: String, userName: String)
 }

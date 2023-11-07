@@ -26,4 +26,7 @@ interface DogDao  {
     @Delete
     fun deleteAdoption(dog: DogEntity)
 
+    @Query("UPDATE adoption_list SET is_favorite = :isFavorite WHERE id = :dogId")
+    fun updateFavorite(dogId: Int, isFavorite: Boolean)
+
 }

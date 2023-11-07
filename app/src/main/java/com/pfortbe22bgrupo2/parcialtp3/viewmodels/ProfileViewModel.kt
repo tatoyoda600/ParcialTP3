@@ -36,4 +36,11 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun addProfileImageToUser(imageUrl: String, userName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseHandler.updateProfileImageToUser(imageUrl, userName)
+        }
+
+    }
+
 }

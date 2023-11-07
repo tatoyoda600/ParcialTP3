@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.adapters.AdoptionDogAdapter
@@ -37,14 +40,29 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
+        adoptionDogAdapter = AdoptionDogAdapter(dogList, this, this)
         return binding.root
         
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initFilter()
         loadData()
+    }
+
+    private fun initFilter() {
+        binding.searchEditText.addTextChangedListener { homeFilter ->
+            var dogsFiltered = dogList.filter { dog ->
+                if (dog.subbreed == null){
+                    dog.breed.lowercase().contains(homeFilter.toString().lowercase())
+                }else{
+                    dog.breed.lowercase().contains(homeFilter.toString().lowercase()) ||
+                    dog.subbreed.lowercase().contains(homeFilter.toString().lowercase())}
+                }
+            dogsFiltered = dogsFiltered.toMutableList()
+            adoptionDogAdapter.updateData(dogsFiltered)
+        }
     }
 
     private fun loadData() {
@@ -61,7 +79,7 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
     private fun initRecyclerView() {
         binding.homeRecyclerView.setHasFixedSize(false)
         try {
-            adoptionDogAdapter = AdoptionDogAdapter(dogList, this, this)
+            //adoptionDogAdapter = AdoptionDogAdapter(dogList, this, this)
             val linearLayoutManager = LinearLayoutManager(context)
             binding.homeRecyclerView.layoutManager = linearLayoutManager
             binding.homeRecyclerView.adapter = adoptionDogAdapter
@@ -69,6 +87,7 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
             Log.e("FavoritesFragment", getString(R.string.error_initialization_recycler_view_failed, e.message))
         }
     }
+
 
     override fun onItemClickAction(position: Int) {
         val dog = dogList[position]
@@ -85,15 +104,11 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
     }
 
     override fun addFavorite(position: Int) {
-        val databaseHandler = DatabaseHandler(binding.root.context)
         val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         val userName = pref.getString("userName","").toString()
         val dogId = dogList[position].id
+        homeViewModel.addDogToFavorites(userName, dogId)
+        Log.i("HomeFragment", "Adding dog: ${dogList[position].name} to favorites of user: $userName")
 
-        CoroutineScope(Dispatchers.IO).launch {
-            databaseHandler.insertFavorite(userName,dogId)
-            Log.d("MENSAJE DE AGREGADO A FAVORITO", "SE DEBERIA AGREGAR A FAVORITOS")
-            Log.i("HomeFragment", "Adding dog: ${dogList[position].name} to favorites of user: $userName")
-        }
     }
 }

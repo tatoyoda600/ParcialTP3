@@ -42,6 +42,7 @@ class RecyclerAdapter(private val context: Context, private var dogList: Mutable
             holder.getFavIconImageView().setOnClickListener {
                 setOnRemoveItemAction(position)
             }
+            holder.setFavoriteIcon(true)
         } else {
             holder.getFavIconImageView().visibility = View.INVISIBLE
         }
