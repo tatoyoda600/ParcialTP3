@@ -85,15 +85,19 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
     }
 
     override fun addFavorite(position: Int) {
-        val databaseHandler = DatabaseHandler(binding.root.context)
+        //val databaseHandler = DatabaseHandler(binding.root.context)
         val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         val userName = pref.getString("userName","").toString()
         val dogId = dogList[position].id
 
-        CoroutineScope(Dispatchers.IO).launch {
+        homeViewModel.addDogToFavorites(userName, dogId)
+        Log.i("HomeFragment", "Adding dog: ${dogList[position].name} to favorites of user: $userName")
+
+
+/*        CoroutineScope(Dispatchers.IO).launch {
             databaseHandler.insertFavorite(userName,dogId)
             Log.d("MENSAJE DE AGREGADO A FAVORITO", "SE DEBERIA AGREGAR A FAVORITOS")
             Log.i("HomeFragment", "Adding dog: ${dogList[position].name} to favorites of user: $userName")
-        }
+        }*/
     }
 }

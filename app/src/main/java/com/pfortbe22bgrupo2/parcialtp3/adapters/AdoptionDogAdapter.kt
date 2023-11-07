@@ -17,7 +17,6 @@ class AdoptionDogAdapter(
 ): RecyclerView.Adapter<FavoritesItemHolder>() {
 
     private lateinit var binding: ItemDogBinding
-   // private val databaseHandler: DatabaseHandler = DatabaseHandler(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesItemHolder {
         binding = ItemDogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,15 +30,18 @@ class AdoptionDogAdapter(
         holder.setName(dogList[position].name!!)
         holder.setImageUrl(dogList[position].image_urls?.get(0)!!, binding.root)
         holder.setDogAge(dogList[position].age.toString())
-        //holder.setDogBreed("dsada")
-        //holder.setDogSubBreed("dasdsa")
+        holder.setDogBreed(dogList[position].breed)
+        holder.setDogSubBreed(dogList[position].subbreed)
         holder.setDogSex(dogList[position].sex.toString())
         holder.getCardLayout().setOnClickListener() {
             showAdoptionDetails.onItemClickAction(position)
         }
         holder.getFavIconImageView().setOnClickListener{
             addToFavorite.addFavorite(position)
+            holder.setFavoriteIcon(true)
         }
+
+        holder.setFavoriteIcon(dogList[position].isFavorite)
     }
 
     fun updateData(favoriteDogs: MutableList<Dog>) {
@@ -47,15 +49,5 @@ class AdoptionDogAdapter(
         notifyDataSetChanged()
     }
 
-/*    private fun addToFavorite(position: Int) {
-        val pref = context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val userName = pref.getString("userName","").toString()
-        val dogId = dogList[position].id
-        //val userFavoritesEntity = UserFavoritesEntity(userName,dogId)
-        CoroutineScope(Dispatchers.IO).launch {
-            //databaseHandler.userFavoritesDao.insertFavorite(userFavoritesEntity)
-            databaseHandler.insertFavorite(userName,dogId)
-        }
-    }*/
 
 }

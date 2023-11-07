@@ -138,6 +138,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
     fun insertFavorite(username: String, dogId: Int): Boolean {
         try {
             userFavoritesDao.insertFavorite(UserFavoritesEntity(username, dogId))
+            dogDao.updateAdoption(dogId, true)
             return true
         }
         catch (error: Exception) {
@@ -149,6 +150,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         val favorite = userFavoritesDao.getUserFavoriteById(username, dogId)
         if (favorite != null) {
             userFavoritesDao.deleteFavorite(favorite)
+            dogDao.updateAdoption(dogId, false)
         }
     }
 
