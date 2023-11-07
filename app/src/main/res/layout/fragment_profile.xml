@@ -45,11 +45,11 @@
             <ImageView
                 android:id="@+id/profile_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:src="@drawable/profile_img"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:contentDescription="@string/profile_picture_description" />
+                android:contentDescription="@string/profile_picture_description"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/userName_textView"

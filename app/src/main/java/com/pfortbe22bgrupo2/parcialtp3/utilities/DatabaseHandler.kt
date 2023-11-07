@@ -196,12 +196,13 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         return false
     }
 
+
     fun getAdoptionsCount(): Int {
         return adoptedDogDao.getAdoptionsCount()
     }
 
-    fun updateProfileImageToUser(urlImage: String, userName: String) {
-        if (urlImage.isEmpty()) {
+    fun updateProfileImageToUser(urlImage: String, userName: String){
+        if (urlImage.isNotEmpty()){
             userDao.updateImageUrl(urlImage, userName)
         }
     }
