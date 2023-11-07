@@ -113,7 +113,11 @@ class DetailsFragment : Fragment() {
                 hideBottomSheet()
                 val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
                 val userName = pref.getString("userName","").toString()
-                viewModel.adoptFromFavorites(dog, userName)
+                viewModel.adoptFromFavorites(dog, userName) { totalAdoptionsCount ->
+                    // Llamar al método de la actividad para actualizar el badge
+                    val activity = requireActivity() as? OnAdoptedFragmentChangeListener
+                    activity?.updateAdoptionsBadge(totalAdoptionsCount)
+                }
                 goToAdoptedFragment()
             }
             builder.setNegativeButton(R.string.no) { dialog, which ->
@@ -164,9 +168,19 @@ class DetailsFragment : Fragment() {
 
     private fun goToAdoptedFragment() {
         val fragment = AdoptedFragment()
+        val activity = requireActivity() as? OnAdoptedFragmentChangeListener
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host, fragment)
             .commit()
+
+        // Notificar al MainActivity que se cambió al fragmento de adopción
+        activity?.onAdoptedFragmentChanged()
     }
+
+    interface OnAdoptedFragmentChangeListener {
+        fun onAdoptedFragmentChanged()
+        fun updateAdoptionsBadge(count: Int)
+    }
+
 
 }

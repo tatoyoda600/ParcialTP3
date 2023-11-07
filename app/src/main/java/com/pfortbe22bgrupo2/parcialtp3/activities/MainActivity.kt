@@ -19,6 +19,7 @@ import com.google.android.material.navigation.NavigationView
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ActivityMainBinding
 import com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment
+import com.pfortbe22bgrupo2.parcialtp3.fragments.DetailsFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.HomeFragment
 import com.pfortbe22bgrupo2.parcialtp3.fragments.ProfileFragment
@@ -33,10 +34,21 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    DetailsFragment.OnAdoptedFragmentChangeListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var fragmentManager: FragmentManager
     private lateinit var adoptedViewModel: AdoptedViewModel
+
+    override fun onAdoptedFragmentChanged() {
+        binding.bottomNavigation.selectedItemId = R.id.adoptedFragment2
+    }
+
+    override fun updateAdoptionsBadge(count: Int) {
+        val badge: BadgeDrawable = binding.bottomNavigation.getOrCreateBadge(R.id.adoptedFragment2)
+        badge.isVisible = true
+        badge.number = count
+    }
 
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         if (key == "night_mode_switch_preferences") {

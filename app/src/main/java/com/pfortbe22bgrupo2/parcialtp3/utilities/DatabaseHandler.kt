@@ -191,4 +191,8 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
         return false
     }
 
+    fun getAdoptionsCount(): Int {
+        return adoptedDogDao.getAdoptionsCount()
+    }
+
 }

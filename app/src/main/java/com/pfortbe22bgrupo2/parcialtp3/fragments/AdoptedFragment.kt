@@ -37,6 +37,9 @@ class AdoptedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadData()
+
+        // Actualiza el título de la ActionBar
+        requireActivity().title = "Adoptados"
     }
 
     private fun initRecyclerView() {
