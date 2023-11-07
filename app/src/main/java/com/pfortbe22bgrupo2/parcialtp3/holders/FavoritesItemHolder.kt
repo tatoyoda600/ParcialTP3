@@ -52,6 +52,9 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
         if (isFavorite){
             binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
         }
+        else {
+            binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav)
+        }
     }
 
 

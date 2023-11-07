@@ -80,6 +80,18 @@ class PublicationFragment : Fragment() {
         return binding.root
     }
 
+    private fun resetForm() {
+        binding.dogAgeInput.text?.clear()
+        binding.weightInput.text?.clear()
+        binding.dogNameInput.text?.clear()
+        binding.locationInput.text?.clear()
+        binding.sexInput.check(binding.maleInput.id)
+        binding.breedInput.text?.clear()
+        binding.subbreedInput.text?.clear()
+        binding.textInput.text?.clear()
+        binding.urlsInput.text?.clear()
+    }
+
     private fun onSubmit() {
         val databaseHandler = DatabaseHandler(binding.root.context)
 
@@ -121,7 +133,12 @@ class PublicationFragment : Fragment() {
                                 val toast = Toast(context)
                                 toast.setText(R.string.publish_adoption)
                                 toast.show()
+
+                                resetForm()
                             }
+
+                            /*
+                            // Para redirigir al fragmento de detalles de la nueva publicacion
                             val fragment = DetailsFragment().apply {
                                 arguments = Bundle().apply {
                                     putParcelable("dog", dog)
@@ -130,6 +147,7 @@ class PublicationFragment : Fragment() {
                             requireActivity().supportFragmentManager.beginTransaction()
                                 .replace(R.id.nav_host, fragment)
                                 .commit()
+                            */
                         }
                     }
                 }
