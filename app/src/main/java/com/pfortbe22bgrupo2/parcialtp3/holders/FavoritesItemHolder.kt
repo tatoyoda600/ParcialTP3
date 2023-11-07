@@ -1,4 +1,5 @@
 package com.pfortbe22bgrupo2.parcialtp3.holders
+
 import android.view.View
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
@@ -11,11 +12,8 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
 
     private var binding: ItemDogBinding
 
-
     init {
         this.binding = binding
-        binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
-
     }
 
     fun setName(name:String) {
@@ -38,7 +36,7 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
         binding.dogBreedTextViewId.text = breed
     }
 
-    fun setDogSubBreed(subBreed: String) {
+    fun setDogSubBreed(subBreed: String?) {
         binding.dogSubBreedTextViewId.text = subBreed
     }
 
@@ -46,8 +44,18 @@ class FavoritesItemHolder(binding: ItemDogBinding): RecyclerView.ViewHolder(bind
         return binding.cardItemContainer
     }
 
-    fun getSaveButtonItem(): ImageView {
+    fun getFavIconImageView(): ImageView {
         return binding.favIconImageView
     }
+
+    fun setFavoriteIcon(isFavorite: Boolean) {
+        if (isFavorite){
+            binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav_filled)
+        }
+        else {
+            binding.favIconImageView.setImageResource(R.drawable.ic_add_to_fav)
+        }
+    }
+
 
 }

@@ -2,18 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_navigation"
-    app:startDestination="@id/loginFragment">
+    android:id="@+id/main_navigation">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.HomeFragment"
@@ -27,20 +17,20 @@
         android:id="@+id/detailsFragment"
         android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details">
+
         <argument
             android:name="dog"
             app:argType="com.pfortbe22bgrupo2.parcialtp3.models.Dog" />
+        <action
+            android:id="@+id/action_detailsActivity_to_adoptedFragment"
+            app:destination="@id/adoptedFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptedFragment"
         android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.AdoptedFragment"
         android:label="fragment_adopted"
-        tools:layout="@layout/fragment_adopted" >
-        <action
-            android:id="@+id/action_adoptedFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_adopted" />
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.pfortbe22bgrupo2.parcialtp3.fragments.FavoritesFragment"

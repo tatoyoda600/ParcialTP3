@@ -1,51 +1,95 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
-import android.app.AlertDialog
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pfortbe22bgrupo2.parcialtp3.adapters.FavoritesAdapter
-import com.pfortbe22bgrupo2.parcialtp3.data.DogsList
-import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
+import com.pfortbe22bgrupo2.parcialtp3.R
+import com.pfortbe22bgrupo2.parcialtp3.adapters.RecyclerAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentFavoritesBinding
-import com.pfortbe22bgrupo2.parcialtp3.listeners.FavoritesItemClickListener
+import com.pfortbe22bgrupo2.parcialtp3.listeners.ShowAdoptionDetailsListener
+import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import com.pfortbe22bgrupo2.parcialtp3.viewmodels.FavoritesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class FavoritesFragment : Fragment(), FavoritesItemClickListener {
-    private lateinit var viewModel: FavoritesViewModel
-    private lateinit var binding : FragmentFavoritesBinding
-    private lateinit var favoritesAdapter: FavoritesAdapter
+@AndroidEntryPoint
+class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
+    private lateinit var favoritesViewModel: FavoritesViewModel
+    private lateinit var binding: FragmentFavoritesBinding
+    private lateinit var recyclerAdapter: RecyclerAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var favorites: DogsList = DogsList()
+    private lateinit var favoriteDogs: MutableList<Dog>
+    private lateinit var userName : String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        loadData()
+        // Actualiza el título de la ActionBar
+        requireActivity().title = "Favoritos"
     }
 
-    private fun initRecyclerView(){
+     private fun loadData() {
+         val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+         userName = pref.getString("userName","").toString()
+
+         favoritesViewModel.loadFavoriteDogs(userName)
+
+         Log.e("FavoriteFrag", "UseRecycle")
+         favoritesViewModel.favoriteDogs.observe(viewLifecycleOwner) { favoriteDogsList ->
+             this.favoriteDogs = favoriteDogsList.toMutableList()
+             initRecyclerView()
+             Log.i("FavoritesFragment", "Getting favorites dog fot user: $userName")
+             if(favoriteDogs.isEmpty()) {
+                 recyclerAdapter.updateData(this.favoriteDogs)
+                 binding.noElementsTextView.visibility = View.VISIBLE
+                 binding.noElementsTextView.text = getString(R.string.no_elements_found_in_favorites)
+             } else {
+                 binding.noElementsTextView.visibility = View.GONE
+                 recyclerAdapter.updateData(this.favoriteDogs)
+             }
+         }
+    }
+
+   private fun initRecyclerView() {
         binding.favoritesRecyclerView.setHasFixedSize(false)
-        favoritesAdapter = FavoritesAdapter(binding.root.context, favorites.dogList)
-        linearLayoutManager = LinearLayoutManager(context)
-        binding.favoritesRecyclerView.layoutManager = linearLayoutManager
-        binding.favoritesRecyclerView.adapter = favoritesAdapter
+        try {
+            Log.e("FavoriteFrag", "SetRecycle")
+            recyclerAdapter = RecyclerAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, userName, true)
+            linearLayoutManager = LinearLayoutManager(context)
+            binding.favoritesRecyclerView.layoutManager = linearLayoutManager
+            binding.favoritesRecyclerView.adapter = recyclerAdapter
+        } catch (e: Exception) {
+            Log.e("FavoritesFragment", getString(R.string.error_initialization_recycler_view_failed, e.message))
+        }
     }
 
-    override fun onFavoriteIconClick(position: Int) {
+    override fun onItemClickAction(position: Int) {
+        val dog = favoriteDogs[position]
+        val fragment = DetailsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("dog", dog)
+            }
+        }
 
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host, fragment)
+            .commit()
     }
-
 
 }

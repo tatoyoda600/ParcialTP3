@@ -1,62 +1,67 @@
 package com.pfortbe22bgrupo2.parcialtp3.fragments
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pfortbe22bgrupo2.parcialtp3.R
 import com.pfortbe22bgrupo2.parcialtp3.activities.ImageViewActivity
+import com.pfortbe22bgrupo2.parcialtp3.activities.MainActivity
 import com.pfortbe22bgrupo2.parcialtp3.adapters.ImageAdapter
 import com.pfortbe22bgrupo2.parcialtp3.databinding.FragmentDetailsBinding
 import com.pfortbe22bgrupo2.parcialtp3.databinding.ItemBottomSheetBinding
 import com.pfortbe22bgrupo2.parcialtp3.models.Dog
+import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import com.pfortbe22bgrupo2.parcialtp3.viewmodels.DetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
     private lateinit var viewModel: DetailsViewModel
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var dog: Dog
+    private var bottomSheetDialog: BottomSheetDialog? = null
+    var phoneNumber: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
+        dog = DetailsFragmentArgs.fromBundle(requireArguments()).dog
+        showBottomSheet(dog)
+        (activity as MainActivity).deselectBottomMenuItems()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val dog = DetailsFragmentArgs.fromBundle(requireArguments()).dog
-        this.dog = createSampleDog()
-        setupRecyclerView()
-        setShowBottomSheetAction()
+        setupRecyclerView(binding.root)
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(view: View) {
         val recyclerView = binding.recycler
 
-        //val array_imgs = dog.image_urls
-
-        val array_imgs = arrayOf(
-            "https://images.unsplash.com/photo-1692528131755-d4e366b2adf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzNXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1692862582645-3b6fd47b7513?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0MXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1692584927805-d4096552a5ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Nnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1692854236272-cc49076a2629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1MXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1681207751526-a091f2c6a538?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyODF8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1692610365998-c628604f5d9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyODZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-        )
-
-        val adapter = ImageAdapter(requireContext(), array_imgs)
+        val adapter = ImageAdapter(view.context, dog.image_urls)
         adapter.setOnItemClickListener { imageView: ImageView?, imagePath: String? ->
-            val intent = Intent(requireContext(), ImageViewActivity::class.java).apply {
+            val intent = Intent(view.context, ImageViewActivity::class.java).apply {
                 putExtra("image", imagePath)
             }
 
@@ -69,76 +74,117 @@ class DetailsFragment : Fragment() {
             startActivity(intent, options)
         }
         recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
     }
 
-    private fun setShowBottomSheetAction() {
-        val btnShowBottomSheet = binding.btnShowBottomSheet
-        btnShowBottomSheet.setOnClickListener {
-            showBottomSheet(dog)
-        }
+    private fun hideBottomSheet() {
+        bottomSheetDialog?.dismiss()
     }
 
     private fun showBottomSheet(dog: Dog) {
-        val dialog = createBottomSheetDialog(dog)
-        dialog.show()
-    }
-
-    private fun createSampleDog(): Dog {
-        return Dog(
-            name = "Rex",
-            age = 3,
-            location = "Recoleta, Buenos Aires",
-            sex = Dog.MALE,
-            weight = 15.5f,
-            owner_username = "jm_sarmiento",
-            owner = "Juan Martin Sarmiento",
-            phone = "1123478540",
-            text = "Rex is a friendly and energetic dog looking for a loving home. He enjoys long walks in the park and playing fetch. He's great with kids and other pets. If you're looking for a loyal companion, Rex might be the perfect addition to your family.",
-            image_urls = arrayOf("https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg", "https://www.eltiempo.com/files/image_640_428/uploads/2023/01/05/63b73981e5a99.jpeg", "https://www.65ymas.com/uploads/s1/10/30/25/5/bigstock-421234682_1_621x621.jpeg")
-        )
+        bottomSheetDialog = createBottomSheetDialog(dog)
+        bottomSheetDialog?.show()
     }
 
     private fun createBottomSheetDialog(dog: Dog): BottomSheetDialog {
         val view = layoutInflater.inflate(R.layout.item_bottom_sheet, null)
-        val dialog = BottomSheetDialog(requireContext())
+        val dialog = BottomSheetDialog(binding.root.context)
+
         dialog.setContentView(view)
 
         val bottomSheetBinding = ItemBottomSheetBinding.bind(view)
         configureBottomSheetContent(bottomSheetBinding, dog)
-
+        setAdoptButtonAction(bottomSheetBinding, dog)
         setOwnersPhoneCallAction(bottomSheetBinding)
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
         bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.peek_height)
-        bottomSheetBehavior.isHideable = true
+        bottomSheetBehavior.isHideable = false
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         return dialog
     }
 
-    private fun setOwnersPhoneCallAction(binding: ItemBottomSheetBinding){
+    private fun setAdoptButtonAction(binding: ItemBottomSheetBinding, dog: Dog) {
+        binding.adoptButton.setOnClickListener {
+            val builder = AlertDialog.Builder(binding.root.context)
+            builder.setTitle(binding.root.context.getString(R.string.adoption_confirmation_modal_title))
+            builder.setMessage(binding.root.context.getString(R.string.adoption_confirmation_modal_text))
+            builder.setPositiveButton(R.string.yes) { dialog, which ->
+                Log.i("DetailsFragment", "Starting adoption process for dog: ${dog.name}")
+                hideBottomSheet()
+                val pref = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+                val userName = pref.getString("userName","").toString()
+                viewModel.adoptFromFavorites(dog, userName) { totalAdoptionsCount ->
+                    // Llamar al método de la actividad para actualizar el badge
+                    val activity = requireActivity() as? OnAdoptedFragmentChangeListener
+                    activity?.updateAdoptionsBadge(totalAdoptionsCount)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val toast = Toast(context)
+                        toast.setText(R.string.dog_adoption)
+                        toast.show()
+                    }
+                }
+                goToAdoptedFragment()
+            }
+            builder.setNegativeButton(R.string.no) { dialog, which ->
+                Log.i("DetailsActivity", R.string.no.toString())
+            }
+            val dialog = builder.create()
+            dialog.show()
+        }
+    }
+
+    private fun setOwnersPhoneCallAction(binding: ItemBottomSheetBinding) {
         val phoneBtn = binding.phonePicImageView
         phoneBtn.setOnClickListener {
-            val phoneNumber = dog.phone
             if (!phoneNumber.isNullOrEmpty()) {
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:$phoneNumber")
                 startActivity(intent)
             } else {
                 val errorMessage = getString(R.string.error_message_phone_number_not_available)
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(binding.root.context, errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun configureBottomSheetContent(binding: ItemBottomSheetBinding, dog: Dog) {
         binding.dogNameTextView.text = dog.name
-        binding.dogLocationTextView.text = dog.location
         binding.dogAgeTextView.text = getString(R.string.years, dog.age.toString())
-        binding.dogOwnerNameTextView.text = dog.owner
         binding.dogLocationTextView.text = dog.location
         binding.adoptionDescriptionTextView.text = dog.text
         binding.dogWeightTextView.text = "${dog.weight}kg"
         binding.dogSexTextView.text = dog.sex
+
+        val databaseHandler = DatabaseHandler(binding.root.context)
+        CoroutineScope(Dispatchers.IO).launch {
+            val user = databaseHandler.getUserByUsername(dog.owner_username)
+            if (user != null) {
+                // Glide se tiene que llamar desde el main thread si o si
+                phoneNumber = user.phone
+                binding.dogOwnerNameTextView.text = user.name
+                CoroutineScope(Dispatchers.Main).launch {
+                    Glide.with(binding.root.context)
+                        .load(user.image_url)
+                        .into(binding.profileUserPicImageView)
+                }
+            }
+        }
     }
+
+    private fun goToAdoptedFragment() {
+        val fragment = AdoptedFragment()
+        val activity = requireActivity() as? OnAdoptedFragmentChangeListener
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host, fragment)
+            .commit()
+        (activity as MainActivity).selectBottomMenuItem(R.id.adoptedFragment2)
+    }
+
+    interface OnAdoptedFragmentChangeListener {
+        fun updateAdoptionsBadge(count: Int)
+    }
+
+
 }
