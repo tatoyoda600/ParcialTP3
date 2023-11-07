@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
         applySettings()
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+        prefs?.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
         //Hacemos que la Toolbar actue como ActionBar
         setSupportActionBar(binding.toolbar)
 
@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setDrawerHeaderName()
     }
 
+
     private fun setDrawerHeaderName() {
         val pref = this.getSharedPreferences("user", Context.MODE_PRIVATE)
         val userName = pref.getString("userName","").toString()
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun applySettings() {
+     private fun applySettings() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val nightMode = prefs.getBoolean("night_mode_switch_preferences",false)
         if (nightMode){

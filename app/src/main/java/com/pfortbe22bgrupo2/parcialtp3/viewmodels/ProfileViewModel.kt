@@ -21,7 +21,7 @@ class ProfileViewModel @Inject constructor(
     val currentUser = MutableLiveData<UserEntity?>()
 
     fun setCurrentUserData(userName: String) {
-        viewModelScope.launch {
+        viewModelScope.launch() {
             val result = withContext(Dispatchers.IO){
                 databaseHandler.getUserByUsername(userName)
             }
@@ -40,7 +40,17 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             databaseHandler.updateProfileImageToUser(imageUrl, userName)
         }
-
     }
-
+    fun getUserProfileImage(userName: String): String{
+        var url: String = ""
+        viewModelScope.launch() {
+            val result = withContext(Dispatchers.IO){
+                databaseHandler.getUserByUsername(userName)
+            }
+            if (result != null){
+                url = result.image_url
+            }
+        }
+        return url
+    }
 }

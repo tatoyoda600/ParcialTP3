@@ -54,5 +54,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="publish_adoption">Publicacion de adopcion realizada con exito!</string>
     <string name="url">Ingrese URL de imagen</string>
-    <string name="search">Buscar por Raza</string>
+    <string name="search">Buscar por raza</string>
 </resources>

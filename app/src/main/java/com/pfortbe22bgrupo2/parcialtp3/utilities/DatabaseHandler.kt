@@ -194,7 +194,7 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
     }
 
     fun updateProfileImageToUser(urlImage: String, userName: String){
-        if (urlImage.isNullOrEmpty()){
+        if (urlImage.isNotEmpty()){
             userDao.updateImageUrl(urlImage, userName)
         }
     }
