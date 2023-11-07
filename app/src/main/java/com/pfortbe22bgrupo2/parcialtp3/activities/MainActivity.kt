@@ -40,10 +40,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var fragmentManager: FragmentManager
     private lateinit var adoptedViewModel: AdoptedViewModel
 
-    override fun onAdoptedFragmentChanged() {
-        binding.bottomNavigation.selectedItemId = R.id.adoptedFragment2
-    }
-
     override fun updateAdoptionsBadge(count: Int) {
         val badge: BadgeDrawable = binding.bottomNavigation.getOrCreateBadge(R.id.adoptedFragment2)
         badge.isVisible = true
@@ -178,6 +174,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun selectBottomMenuItem(id: Int) {
         deselectBottomMenuItems()
-        binding.bottomNavigation.menu.getItem(id).isChecked = true
+        binding.bottomNavigation.selectedItemId = id
     }
 }
