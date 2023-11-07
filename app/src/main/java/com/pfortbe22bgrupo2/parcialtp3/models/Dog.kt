@@ -1,8 +1,12 @@
 package com.pfortbe22bgrupo2.parcialtp3.models
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import com.pfortbe22bgrupo2.parcialtp3.entities.AdoptedDogEntity
+
+import androidx.annotation.RequiresApi
+
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import com.pfortbe22bgrupo2.parcialtp3.utilities.DatabaseHandler
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +64,7 @@ data class Dog(
         parcel.writeString(subbreed)
         parcel.writeString(text)
         parcel.writeStringArray(image_urls)
+        parcel.toString()
     }
 
     override fun describeContents(): Int {
@@ -98,6 +103,7 @@ data class Dog(
 
         @JvmField
         val CREATOR: Parcelable.Creator<Dog> = object : Parcelable.Creator<Dog> {
+           // @RequiresApi(Build.VERSION_CODES.Q)
             override fun createFromParcel(parcel: Parcel): Dog {
                 return Dog(parcel)
             }
@@ -166,7 +172,7 @@ data class Dog(
         SAN_LUIS("San Luis"),
         SANTA_CRUZ("Santa Cruz"),
         SANTA_FE("Santa Fe"),
-        SANTIAGO_DEL_ESTERO("Tierra del Fuego"),
+        SANTIAGO_DEL_ESTERO("Santiago del Estero"),
         TIERRA_DEL_FUEGO("Tierra del Fuego"),
         TUCUMAN("Tucuman")
     }

@@ -8,6 +8,7 @@ import com.pfortbe22bgrupo2.parcialtp3.database.DogDao
 import com.pfortbe22bgrupo2.parcialtp3.database.DogImagesDao
 import com.pfortbe22bgrupo2.parcialtp3.database.UserDao
 import com.pfortbe22bgrupo2.parcialtp3.database.UserFavoritesDao
+import com.pfortbe22bgrupo2.parcialtp3.entities.DogEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.DogImageEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserEntity
 import com.pfortbe22bgrupo2.parcialtp3.entities.UserFavoritesEntity
@@ -179,15 +180,15 @@ class DatabaseHandler @Inject constructor(@ApplicationContext context: Context) 
             try {
                 dogDao.deleteAdoption(entity)
                 val adoptedEntity = Dog.createFromEntity(entity, this).toAdoptedEntity(username)
-                val output = adoptedDogDao.insertAdoptedDog(adoptedEntity)
-                Log.i("DatabaseHandler", "Adopted dog with id $dogId, output: $output")
+                adoptedDogDao.insertAdoptedDog(adoptedEntity)
+                deleteFavorite(username, dogId)
                 return true
             }
             catch (error: Exception) {
-                Log.e("DatabaseHandler", error.message.toString())
                 return false
             }
         }
         return false
     }
+
 }

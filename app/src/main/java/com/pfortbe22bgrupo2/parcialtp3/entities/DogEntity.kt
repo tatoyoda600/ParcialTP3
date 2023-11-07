@@ -17,6 +17,7 @@ class DogEntity(
     subbreed: String?,
     text: String
 ) {
+
     @PrimaryKey(autoGenerate = true)
     val id: Int
 
@@ -71,4 +72,5 @@ class DogEntity(
         subbreed: String?,
         text: String
     ): this(0, name, age, location, sex, weight, owner_username, breed, subbreed, text)
+
 }
