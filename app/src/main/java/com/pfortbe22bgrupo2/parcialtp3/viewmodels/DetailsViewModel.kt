@@ -38,8 +38,7 @@ class DetailsViewModel @Inject constructor(
         return selectedDog
     }
 
-    fun adoptFromFavorites(dog: Dog, userName : String,
-                           onAdoptionsCountUpdated: (Int) -> Unit) {
+    fun adoptFromFavorites(dog: Dog, userName : String, onAdoptionsCountUpdated: (Int) -> Unit) {
         viewModelScope.launch(Dispatchers.IO){
             val user = databaseHandler.getUserByUsername(userName)
             if(user != null){

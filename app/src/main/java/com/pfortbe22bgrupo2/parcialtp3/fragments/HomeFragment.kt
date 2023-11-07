@@ -45,7 +45,7 @@ class HomeFragment: Fragment(), ShowAdoptionDetailsListener, AddToFavorite {
         val thisFragment = this
         CoroutineScope(Dispatchers.IO).launch {
             val favorites = databaseHandler.getFavoriteIDsByUsername(userName)
-            adoptionDogAdapter = AdoptionDogAdapter(dogList, thisFragment, thisFragment, favorites)
+            adoptionDogAdapter = AdoptionDogAdapter(binding.root.context, dogList, thisFragment, thisFragment, favorites, userName)
         }
 
         binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->

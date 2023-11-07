@@ -119,6 +119,11 @@ class DetailsFragment : Fragment() {
                     // Llamar al método de la actividad para actualizar el badge
                     val activity = requireActivity() as? OnAdoptedFragmentChangeListener
                     activity?.updateAdoptionsBadge(totalAdoptionsCount)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val toast = Toast(context)
+                        toast.setText(R.string.dog_adoption)
+                        toast.show()
+                    }
                 }
                 goToAdoptedFragment()
             }

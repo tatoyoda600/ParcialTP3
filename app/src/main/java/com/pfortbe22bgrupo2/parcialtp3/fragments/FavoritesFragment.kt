@@ -38,6 +38,7 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
         loadData()
         // Actualiza el título de la ActionBar
         requireActivity().title = "Favoritos"
@@ -48,14 +49,18 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
          userName = pref.getString("userName","").toString()
 
          favoritesViewModel.loadFavoriteDogs(userName)
+
+         Log.e("FavoriteFrag", "UseRecycle")
          favoritesViewModel.favoriteDogs.observe(viewLifecycleOwner) { favoriteDogsList ->
              this.favoriteDogs = favoriteDogsList.toMutableList()
+             initRecyclerView()
              Log.i("FavoritesFragment", "Getting favorites dog fot user: $userName")
              if(favoriteDogs.isEmpty()) {
+                 recyclerAdapter.updateData(this.favoriteDogs)
+                 binding.noElementsTextView.visibility = View.VISIBLE
                  binding.noElementsTextView.text = getString(R.string.no_elements_found_in_favorites)
              } else {
                  binding.noElementsTextView.visibility = View.GONE
-                 initRecyclerView()
                  recyclerAdapter.updateData(this.favoriteDogs)
              }
          }
@@ -64,6 +69,7 @@ class FavoritesFragment : Fragment(), ShowAdoptionDetailsListener {
    private fun initRecyclerView() {
         binding.favoritesRecyclerView.setHasFixedSize(false)
         try {
+            Log.e("FavoriteFrag", "SetRecycle")
             recyclerAdapter = RecyclerAdapter(binding.root.context, favoriteDogs, this, favoritesViewModel, userName, true)
             linearLayoutManager = LinearLayoutManager(context)
             binding.favoritesRecyclerView.layoutManager = linearLayoutManager
